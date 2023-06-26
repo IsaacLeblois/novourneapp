@@ -26,7 +26,7 @@ log4js.configure({
     }
 })
 const logger = log4js.getLogger()
-logger.trace('Logger iniciado correctamente')
+logger.trace('Auth Branch v0.0.1')
 
 //MIDDLEWARES
 app.set('views', 'src/views')
