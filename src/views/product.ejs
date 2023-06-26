@@ -1,0 +1,20 @@
+<%- layout('./layouts/main.ejs') %> 
+<h1 class="text-center mt-1">Detalles de <%= producto.title %> </h1>
+<div class="text-center mt-1 border">
+    <form method="POST" action=<%= producto.id %> >
+        <img src=<%= producto.thumbnail %> alt="imagen" width="50%"><br>
+        <h3 class="mt-5">$ <%= producto.price %></h3><br>
+        <div>
+            <button class="btn btn-secondary p-3 border" type="button">-</button>
+            <span class="p-3">1</span>
+            <button class="btn btn-secondary p-3 border" type="button">+</button>
+        </div><br><br>
+        <% if(user) { %>
+            <button type="submit" class="btn btn-success w-25">Agregar al carrito</button>
+            <a type="button" class="btn btn-primary w-25" href="/home">Volver a los productos</a>  
+        <% } else { %>
+            <a class="btn btn-danger w-25" href="/signin">Iniciar sesion</a>
+            <a type="button" class="btn btn-primary w-25" href="/home">Volver a los productos</a>  
+        <% } %>
+    </form>
+</div>

@@ -1,0 +1,11 @@
+<ul>
+  {{#if allMessages}}
+
+    {{#each allMessages}}
+      <p><strong>{{this.user}}</strong>: {{this.messageText}}</p>
+    {{/each}}
+
+  {{else}}
+    <p>No hay mensajes aún.</p>
+  {{/if}}
+</ul>

@@ -1,0 +1,20 @@
+<%- layout('./layouts/main.ejs') %> 
+<% if(user) { %>
+    <h1 class="text-center mt-5">¡Hola <%= user.name %>!</h1>
+<% } else { %> 
+    <h1 class="text-center mt-5">¡Bienvenido!</h1>
+<% } %> 
+
+<div class="m-5 d-flex gap-3 justify-content-center">
+    <% products.forEach(e => { %>
+        <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+            <div class="card-header"></div>
+            <img src=<%= e.thumbnail %>  alt="imagen">
+            <div class="card-body text-center">
+                <h4 class="card-title"><%= e.title %></h4>
+                <p class="card-text">$ <%= e.price %> </p>
+                <a class="btn btn-secondary" href=<%= e.id %>>Ver detalles</a>
+            </div>
+        </div>
+    <% }) %> 
+</div>

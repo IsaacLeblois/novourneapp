@@ -1,0 +1,28 @@
+{{#if allProducts}}
+  <table class='table table-light'>
+    <thead>
+      <tr>
+        <th class='text-center'>Titulo</th>
+        <th class='text-center'>Precio</th>
+        <th class='text-center'>Vista previa</th>
+        <th class='text-center'>Accion</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each allProducts}}
+        <tr>
+          <th scope='row' class='ps-4 align-middle text-center'>{{this.title}}</th>
+          <td class='text-center align-middle'>${{this.price}}</td>
+          <td>
+            <div class='image-container text-center'>
+              <img src={{this.thumbnail}} alt='Imagen del producto' class='img-thumbnail' width="100" />
+            </div>
+          </td>
+          <td class='text-center align-middle'><button class='btn btn-danger'>Eliminar</button></td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+{{else}}
+<h1 class='m-4 text-center'>No hay productos</h1>
+{{/if}}

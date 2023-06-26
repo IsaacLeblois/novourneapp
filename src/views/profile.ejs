@@ -1,0 +1,17 @@
+<%- layout('layouts/main.ejs') %> 
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <div class="card mt-5 text-center">
+            <div class="card-header">
+                <h3>Perfil</h3>
+            </div>
+            <div class="card-body">
+                <h3 class="p-2"><%= user.name %></h3>
+                <p><%= user.email %></p>
+                <p><%= user.adress %></p>
+                <p><%= user.age %> años</p>
+                <p><%= user.phone %></p>
+            </div>
+        </div>
+    </div>
+</div>

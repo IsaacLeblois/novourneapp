@@ -1,0 +1,111 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
+}
+
+a {
+    text-decoration: none;
+}
+
+.globalbanner {
+    background-color: black;
+    font-size: .8rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 9px 0; 
+}
+
+.globalbanner a {
+    color: #a29bfe;
+    padding: 15px;
+}
+
+.globalbanner a:hover {
+    color: #f7fafc;
+}
+
+.bold {
+    font-weight: bolder;
+}
+
+.globalhead {
+    background-color: rgb(20, 20, 20);
+    display: flex;
+    -webkit-box-shadow: 0px 1px 5px 5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 1px 5px 5px rgba(0,0,0,0.75);
+    box-shadow: 0px 1px 5px 5px rgba(0,0,0,0.75);
+}
+
+.globalhead .col {
+    display: flex;
+    align-items: center;
+}
+
+.globalhead a {
+    color: #f7fafc;
+    padding: 15px;
+}
+
+.globalhead a:hover {
+    color: #a29bfe;
+}
+
+.rainbow-box {
+    position: fixed;
+    width: 100%;
+    height: 800vh;
+    border-radius: 5px;
+    background: linear-gradient(
+        180deg,
+        rgb(0, 102, 191) 0%,
+        rgb(225, 105, 255) 50%,
+        rgb(246, 255, 150) 100%
+    );
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 40px;
+    letter-spacing: 1px;
+    color: white;
+}
+
+h2 {
+    font-weight: bolder;
+    font-size: 28px;
+    line-height: 34px;
+    letter-spacing: 1px;
+    color: white;
+}
+
+.page-section {
+    position: relative;
+    padding: 4rem 0;
+}
+
+.page-section .con1 {
+    max-width: 1280px;
+    padding: 0 10%;
+}
+
+.text-small {
+    font-size: .875rem;
+}
+
+.navSpace {
+    height: 120px;
+    background-color: blue;
+}
+
+.conLogin {
+    border-radius: 10px;
+    min-height: 500px;
+    max-width: 480px;
+    background-color: #f7fafc;
+}
+
+.text-muted {
+    color: #8898aa;
+}

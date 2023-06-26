@@ -1,0 +1,36 @@
+<%- layout('./layouts/main.ejs') %> 
+<h1 class="text-center mt-5">Carrito de compras de <%= cart.user %> </h1>
+
+<table class="table table-hover align-middle">
+    <form action="/cart" method="POST">
+        <thead>
+            <tr>
+            <th scope="col">Imagen</th>
+            <th scope="col">Titulo</th>
+            <th scope="col"></th>
+            <th scope="col">Precio</th>
+            <th scope="col">Accion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% data.forEach(e => { %>
+            <tr>
+                <th class="w-25"><img src=<%= e.thumbnail %> alt="image" width='120'></th>
+                <td colspan="2"><%= e.title %></td>
+                <td><%= e.price %></td>
+                <td class="d-flex w-100" style="height: 120px;">
+                    <a class="btn btn-outline-danger w-100" type="button" href="<%= e.id %>/delete">Eliminar</a>
+                </td>
+            </tr>
+            <% }) %>
+            <tr>
+                <% if(data.length > 0) { %>
+                    <td colspan="4"><a href="/home" class="btn btn-outline-primary w-100" type="button">Agregar mas productos</a></td>  
+                    <td><button type="submit" class="btn btn-outline-success w-100">Hacer pedido</button></td><br>
+                <% } else { %>
+                    <td colspan="5"><a href="/home" class="btn btn-outline-primary w-100" type="button">Agregar mas productos</a></td>
+                <% } %> 
+            </tr>
+        </tbody>
+    </form>
+</table>
