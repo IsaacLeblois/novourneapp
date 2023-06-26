@@ -58,13 +58,13 @@ app.use('/', require('./src/router/router'))
 
 const PORT = process.env.PORT || 8080
 
-const server = app.listen(PORT, () => {
-    logger.info('Servidor iniciado en el puerto '+PORT)
-})
+// const server = app.listen(PORT, () => {
+//     logger.info('Servidor iniciado en el puerto '+PORT)
+// })
 
-// httpServer.listen(PORT, () => logger.info(`Servidor iniciado en el puerto ${PORT}`));
+httpServer.listen(PORT, () => logger.info(`Servidor iniciado en el puerto ${PORT}`));
 
-server.on('error', error => logger.fatal('Error al iniciar el servidor '+error))
+// server.on('error', error => logger.fatal('Error al iniciar el servidor '+error))
 
 //SOCKETS
 io.on('connection', (socket) => {
