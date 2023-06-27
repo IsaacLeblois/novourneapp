@@ -8,12 +8,10 @@ const log4js = require('log4js')
 const engine = require('ejs-mate')
 const bodyParser = require('body-parser')
 const { Server: HttpServer } = require('http')
-const { Server: IOServer } = require('socket.io')
 
 //INITIALIZATIONS
 const app = express()
 const httpServer = new HttpServer(app)
-const io = new IOServer(httpServer)
 require('./database')
 require('./src/passport/local-auth')
 
@@ -65,30 +63,3 @@ const server = app.listen(PORT, () => {
 // httpServer.listen(PORT, () => logger.info(`Servidor iniciado en el puerto ${PORT}`));
 
 server.on('error', error => logger.fatal('Error al iniciar el servidor '+error))
-
-//SOCKETS
-io.on('connection', (socket) => {
-    socket.emit('socketConnected', 'success')
-
-    socket.on('productListRequest', async () => {
-        const allProducts = await productsController.getAllProduct()
-        socket.emit('updateProductList', allProducts)
-    })
-
-    socket.on('chatMessagesRequest', async () => {
-        const allMessages = await messagesController.getAllMessages()
-        socket.emit('updateChat', allMessages)
-    })
-
-    socket.on('addNewProduct', async (newProduct) => {
-        await productsController.addNewProduct(newProduct)
-        const allProducts = await productsController.getAllProduct()
-        socket.emit('updateProductList', allProducts)
-    })
-
-    socket.on('addNewMessage', async (newMessage) => {
-        await messagesController.addNewMessage(newMessage)
-        const allMessages = await messagesController.getAllMessages()
-        socket.emit('updateChat', allMessages)
-    })
-})
