@@ -3,7 +3,6 @@ const router = express.Router()
 const passport = require('passport')
 const log4js = require('log4js')
 const logger = log4js.getLogger()
-const client = require('../../twilio'); 
 const productsModel = require('../models/product')
 const cartModel = require('../models/cart')
 const orderModel = require('../models/order')
@@ -128,11 +127,7 @@ router.post('/cart', async (req, res, next) => {
 
     await orderModel.create(newOrder)
     await cartModel.deleteOne({ user: req.user.name })
-    client.messages.create({
-        body: 'Nueva orden creada: '+userCart.id+'\nNombre: '+req.user.name+'\nFecha: '+userCart.createdAt+'\nProductos: '+productsIds+'\nTotal: '+totalAmount+'\nDireccion: '+req.user.adress, 
-        from: 'whatsapp:+14155238886',       
-        to: 'whatsapp:+5215547408974' 
-    })
+
     res.render('thanks')
 })
 
