@@ -1,6 +1,6 @@
 <%- layout('./layouts/main.ejs') %> 
 <% if(user) { %>
-    <h1 class="text-center mt-5">¡Hola <%= user.name %>!</h1>
+    <h1 class="text-center mt-5">¡Hola <%= user.name %> <%= user.lastname %>!</h1>
 <% } else { %> 
     <h1 class="text-center mt-5">¡Bienvenido!</h1>
 <% } %> 

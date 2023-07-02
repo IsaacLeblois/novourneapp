@@ -6,9 +6,10 @@ const userSchema = new Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     name: { type: String, required: true },
-    adress: { type: String, required: true },
+    lastname: { type: String, required: true },
     age: { type: Number, required: true },
-    phone: { type: String, required: true },
+    role: { type: String },
+    job: { type: String },
     photo: { type: String },
     isAdmin: { type: Boolean, default: false },
 }, {timestamps: true})

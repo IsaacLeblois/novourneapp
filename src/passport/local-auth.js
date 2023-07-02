@@ -20,9 +20,8 @@ passport.use('local-signup', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',
     nameField: 'name',
-    adressField: 'adress',
+    lastnameField: 'lastname',
     ageField: 'age',
-    phoneField: 'phone',
     passReqToCallback: true,
 
 }, async function (req, email, password, done) {
@@ -37,9 +36,10 @@ passport.use('local-signup', new LocalStrategy({
         newUser.email = email
         newUser.password = newUser.encryptPassword(password)
         newUser.name = req.body.name
-        newUser.adress = req.body.adress
+        newUser.lastname = req.body.lastname
         newUser.age = req.body.age
-        newUser.phone = req.body.phone
+        newUser.role = null
+        newUser.job = null
         newUser.photo = null
 
         logger.info('Usuario '+newUser.name+' se ha registrado correctamente')
