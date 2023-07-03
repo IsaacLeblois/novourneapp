@@ -1,5 +1,19 @@
-#profileImg {
+.ppContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 3% 0;
+}
+
+.profcont {
     border-radius: 50%;
-    width: 25%;
-    margin: 3% 0;
+    width: 125px;
+    height: 125px;
+    display: flex;
+}
+
+.profimg {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
 }
