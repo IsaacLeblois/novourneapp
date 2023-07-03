@@ -24,10 +24,11 @@ log4js.configure({
     }
 })
 const logger = log4js.getLogger()
-logger.trace('Auth Branch v0.0.1')
+logger.trace('Database Branch v0.0.1')
 
 //MIDDLEWARES
 app.set('views', 'src/views')
+app.use(express.static('public'))
 app.engine('ejs', engine)
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: true }))
