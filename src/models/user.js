@@ -11,6 +11,7 @@ const userSchema = new Schema({
     role: { type: String },
     job: { type: String },
     photo: { type: String },
+    isVerified: { type: Boolean, default: false },
     isAdmin: { type: Boolean, default: false },
 }, {timestamps: true})
 

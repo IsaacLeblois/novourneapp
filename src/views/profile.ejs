@@ -18,7 +18,16 @@
                         </div>
                     <% } %> 
                 </div>
-                <h3 class="p-2"><%= user.name %> <%= user.lastname %></h3>
+
+                <% if(user.isVerified) { %>
+                    <div class="d-flex justify-content-center">
+                        <h3 class="p-2"><%= user.name %> <%= user.lastname %></h3>
+                        <img src="assets/verified.png" alt="verificado" width="20" height="20">
+                    </div>
+                <% } else { %>
+                    <h3 class="p-2"><%= user.name %> <%= user.lastname %></h3> 
+                <% } %>
+
                 <p><%= user.email %></p>
                 <p><%= user.age %> años</p>
                 <div class="row pt-3">
