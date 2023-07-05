@@ -9,18 +9,30 @@ const orderModel = require('../models/order')
 const userModel = require('../models/user')
 const user = require('../models/user')
 
-//HOME
+//INDEX
 router.get('/', (req, res, next) => {
-    res.redirect('/home')
+    res.render('index')
 })
 
-router.get('/home', (req, res, next) => {
+router.get('/news', (req, res, next) => {
     newsModel.find().exec((err, news) => {
         if(err) {
             res.send('ERROR AL CARGAR LOS PRODUCTOS')
         } else {
-            res.render('home', {
+            res.render('news', {
                 news: news,
+            })
+        }
+    })
+})
+
+router.get('/social', (req, res, next) => {
+    userModel.find().exec((err, users) => {
+        if(err) {
+            res.send('ERROR AL CARGAR LOS PRODUCTOS')
+        } else {
+            res.render('users', {
+                users: users,
             })
         }
     })
@@ -36,7 +48,7 @@ router.get('/signup', (req, res, next) => {
 })
 
 router.post('/signup', passport.authenticate('local-signup', {
-    successRedirect: '/home',
+    successRedirect: '/',
     failureRedirect: '/signup',
     passReqToCallback: true
 }))
@@ -46,7 +58,7 @@ router.get('/signin', (req, res, next) => {
 })
 
 router.post('/signin', passport.authenticate('local-signin', {
-    successRedirect: '/home',
+    successRedirect: '/',
     failureRedirect: '/signin',
     passReqToCallback: true
 }))
@@ -63,7 +75,7 @@ function isAuthenticated(req, res, next) {
         return next()
     }
     logger.warn('Usuario anonimo está intentando acceder a una ruta privada')
-    res.redirect('/home')
+    res.redirect('/')
 }
 
 function isAdmin(req, res, next) {
@@ -71,7 +83,7 @@ function isAdmin(req, res, next) {
         return next()
     } else {
         logger.warn('Usuario '+req.user.name+' está intentando acceder a una ruta de administrador')
-        res.redirect('/home')
+        res.redirect('/')
     }
 }
 

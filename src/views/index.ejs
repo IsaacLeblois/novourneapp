@@ -1,0 +1,20 @@
+<div class="rainbow-box-absolute"></div>
+<%- layout('./layouts/main.ejs') %> 
+<% if(user) { %>
+    <h1 class="text-center mt-5 text-white popp">¡Hola <%= user.name %> <%= user.lastname %>!</h1>
+<% } else { %> 
+    <h1 class="text-center mt-5 text-white popp sombrat">¡Bienvenido a Novourne!</h1>
+<% } %> 
+
+<div class="d-flex mx-5 px-5">
+    <div class="col p-5 m-5 text-center">
+        <h4 class="text-white popp sombrat">¿Que es Novourne?</h4>
+        <p class="text-white sombrat">Los servidores son enormes mundos en línea, creados por nuestros socios oficiales, gente agradable de la propia comunidad de Minecraft. Cada uno ofrece su propio tipo de diversión, con minijuegos únicos que te permiten competir o colaborar con amigos (y amigos-enemigos), enormes "salas de estar" donde puedes pasar el rato con otros jugadores y grandes mundos personalizados para explorar.</p>
+    </div>
+    <div class="col p-5 m-5 d-flex align-items-center justify-content-center">
+        <img src="assets/wither.png" alt="creeper" width="200" class="animate__animated animate__bounceIn">
+    </div>
+</div>
+<img src="assets/clouds.webp" alt="nubes" class="my-5">
+
+</div>
