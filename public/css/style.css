@@ -17,3 +17,16 @@
     width: 100%;
     height: 100%;
 }
+
+.globalbanner {
+    padding: 0.5%;
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+}
+
+.globalbanner div a {
+    color: aliceblue;
+    text-decoration: none;
+    font-size: 2vh;
+}
