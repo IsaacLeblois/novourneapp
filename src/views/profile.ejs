@@ -27,15 +27,13 @@
                 <% } else { %>
                     <h3 class="p-2"><%= user.name %> <%= user.lastname %></h3> 
                 <% } %>
-
-                <p><%= user.email %></p>
-                <p><%= user.age %> años</p>
+                <p>@<%= user.username %></p>
                 <div class="row pt-3">
                     <div class="col">
-                        <button class="btn btn-primary w-100" data-toggle="modal" data-target=".bd-example-modal-sm">Editar perfil</button>
+                        <button class="btn btn-primary w-100 rounded" data-toggle="modal" data-target=".bd-example-modal-sm">Editar perfil</button>
                     </div>
                     <div class="col">
-                        <a class="btn btn-danger w-100" href="/logout">Cerrar sesion</a>
+                        <a class="btn btn-danger w-100 rounded" href="/logout">Cerrar sesion</a>
                     </div>
                 </div>
             </div>
@@ -59,17 +57,17 @@
                     <input class="form-control" type="text" name="lastname" placeholder="Apellido" value=<%= user.lastname %>>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="number" name="age" placeholder="Edad" value=<%= user.age %>>
+                    <input class="form-control" type="text" name="username" placeholder="Usuario de Minecraft" value=<%= user.username %>>
                 </div>
                 <div class="form-group">
                     <input class="form-control" type="text" name="photo" placeholder="Foto de perfil" value=<%= user.photo %>>
                 </div>
                 <div class="row mt-4">
                     <div class="col">
-                        <button class="btn btn-primary w-100" data-dismiss="modal">Volver</button>
+                        <button class="btn btn-primary w-100 rounded" data-dismiss="modal">Volver</button>
                     </div>
                     <div class="col">
-                        <button class="btn btn-danger w-100" type="submit">Actualizar</button>
+                        <button class="btn btn-danger w-100 rounded" type="submit">Actualizar</button>
                     </div>
                 </div>
             </form>

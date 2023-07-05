@@ -95,12 +95,13 @@ router.post('/profile/update', isAuthenticated, async (req, res, next) => {
             email: req.body.email,
             name: req.body.name,
             lastname: req.body.lastname,
+            usernmae: req.body.username,
             age: req.body.age,
             photo: thumb
         }
     
         try {
-            await userModel.findOneAndUpdate({ email: oldProfile.email }, { email: newProfile.email, name: newProfile.name, lastname: newProfile.lastname, age: newProfile.age, photo: newProfile.photo }, {upsert: true}).exec()
+            await userModel.findOneAndUpdate({ email: oldProfile.email }, { email: newProfile.email, name: newProfile.name, lastname: newProfile.lastname, username: newProfile.username, age: newProfile.age, photo: newProfile.photo }, {upsert: true}).exec()
             logger.info('Perfil de '+ oldProfile.name + ' ' + oldProfile.lastname + ' actualizado exitosamente')
             res.redirect('/profile')
         } catch(err) {
