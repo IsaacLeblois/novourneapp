@@ -22,6 +22,7 @@ passport.use('local-signup', new LocalStrategy({
     nameField: 'name',
     lastnameField: 'lastname',
     ageField: 'age',
+    genderField: 'gender',
     passReqToCallback: true,
 
 }, async function (req, email, password, done) {
@@ -38,6 +39,7 @@ passport.use('local-signup', new LocalStrategy({
         newUser.name = req.body.name
         newUser.lastname = req.body.lastname
         newUser.age = req.body.age
+        newUser.gender = req.body.gender
         newUser.role = null
         newUser.job = null
         newUser.photo = null

@@ -21,7 +21,11 @@
         </div>
     </div>
     <div class="col d-flex flex-column justify-content-center align-items-center">
-        <h2 class="text-white popp">Bienvenido Sr. <%= user.lastname %></h2>
+        <% if(user.gender == "m") { %> 
+            <h2 class="text-white popp">Bienvenida Sra. <%= user.lastname %></h2>
+        <% } else { %>
+            <h2 class="text-white popp">Bienvenido Sr. <%= user.lastname %></h2>
+        <% } %>
         <h4 class="text-white popp">Su cuenta tiene <%= account.balance %>.00 NVP.</h4>
     </div>
 </div>
