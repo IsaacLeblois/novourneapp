@@ -1,20 +1,28 @@
+<div class="rainbow-box"></div>
 <%- layout('./layouts/main.ejs') %> 
 <% if(user) { %>
-    <h1 class="text-center mt-5">¡Hola <%= user.name %> <%= user.lastname %>!</h1>
+    <h1 class="text-center mt-5 text-white popp">¡Hola <%= user.name %> <%= user.lastname %>!</h1>
 <% } else { %> 
-    <h1 class="text-center mt-5">¡Bienvenido!</h1>
+    <h1 class="text-center mt-5 text-white popp">¡Bienvenido!</h1>
 <% } %> 
 
 <div class="m-5 d-flex gap-3 justify-content-center">
-    <% products.forEach(e => { %>
-        <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
-            <div class="card-header"></div>
-            <img src=<%= e.thumbnail %>  alt="imagen">
-            <div class="card-body text-center">
-                <h4 class="card-title"><%= e.title %></h4>
-                <p class="card-text">$ <%= e.price %> </p>
-                <a class="btn btn-secondary" href=<%= e.id %>>Ver detalles</a>
+    <% if(products.length > 0) { %>
+        <% products.forEach(e => { %>
+            <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                <div class="card-header"></div>
+                <img src=<%= e.thumbnail %>  alt="imagen">
+                <div class="card-body text-center">
+                    <h4 class="card-title"><%= e.title %></h4>
+                    <p class="card-text">$ <%= e.price %> </p>
+                    <a class="btn btn-secondary" href=<%= e.id %>>Ver detalles</a>
+                </div>
             </div>
+        <% }) %> 
+    <% } else { %> 
+        <div class="d-flex flex-column align-items-center m-5">
+            <img src="assets/triste.png" alt="triste" width="200">
+            <h4 class="text-center text-white popp mt-3">Aún no hay nada</h4>
         </div>
-    <% }) %> 
+    <% } %> 
 </div>

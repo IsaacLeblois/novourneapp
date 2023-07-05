@@ -26,6 +26,10 @@ router.get('/home', (req, res, next) => {
     })
 })
 
+router.get('/discord', (req, res, next) => {
+    res.render('discord')
+})
+
 //AUTH
 router.get('/signup', (req, res, next) => {
     res.render('signup')
