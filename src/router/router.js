@@ -115,6 +115,15 @@ router.post('/profile/password/update', isAuthenticated, (req, res, next) => {
     res.redirect('/501')
 })
 
+router.get('/profile/:id', async (req, res, next) => {
+    try {
+        const player = await userModel.findById(req.params.id).exec()
+        res.render('player', {player})
+    } catch(err) {
+        res.redirect('/404')
+    }
+})
+
 router.get('/cart', isAuthenticated, async (req, res, next) => {
     const userCart = await cartModel.findOne({ user: req.user.name }).exec()
     
@@ -212,7 +221,7 @@ router.get('/404', (req, res, next) => {
 })
 
 //NEWS
-router.get('/:id', async (req, res, next) => {
+router.get('/news/:id', async (req, res, next) => {
     try {
         const notice = await newsModel.findById(req.params.id).exec()
         res.render('notice', {notice})
@@ -221,7 +230,7 @@ router.get('/:id', async (req, res, next) => {
     }
 })
 
-router.get('/:id/delete', async (req, res, next) => {
+router.get('/news/:id/delete', async (req, res, next) => {
     try {
         const prevCart = await cartModel.findOne({ user: req.user.name }).exec()
         const newCart = [...prevCart.products]
@@ -234,7 +243,7 @@ router.get('/:id/delete', async (req, res, next) => {
     res.redirect('/cart')
 })
 
-router.post('/:id', isAuthenticated, async (req, res, next) => {
+router.post('/news/:id', isAuthenticated, async (req, res, next) => {
     console.log('INICIA POST A ID '+req.params.id)
     try {
         const product = await productsModel.findById(req.params.id)
