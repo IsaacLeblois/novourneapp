@@ -1,22 +1,22 @@
 <%- layout('./layouts/main.ejs') %> 
-<h1 class="text-center mt-5">Productos</h1>
+<h1 class="text-center mt-5">Noticias</h1>
 
 <table class="table table-hover align-middle">
   <thead>
     <tr>
       <th scope="col">Imagen</th>
       <th scope="col">Titulo</th>
-      <th scope="col">Precio</th>
+      <th scope="col">Autor</th>
       <th scope="col">Categorias</th>
       <th scope="col">Accion</th>
     </tr>
   </thead>
   <tbody>
-    <% products.forEach(e => { %>
+    <% news.forEach(e => { %>
       <tr>
         <th class="w-25"><img src=<%= e.thumbnail %> alt="imagen" width='120'></th>
         <td><%= e.title %></td>
-        <td><%= e.price %></td>
+        <td><%= e.author %></td>
         <td><%= e.categories %></td>
         <td class="d-flex w-100" style="height: 120px;">
             <button class="btn btn-outline-primary w-100">Editar</button>
@@ -25,7 +25,7 @@
       </tr>
     <% }) %>
     <tr>
-      <td colspan="5"><a href="/admin/create" class="btn btn-outline-primary w-100" type="button">Añadir un nuevo producto</a></td>     
+      <td colspan="5"><a href="/admin/create" class="btn btn-outline-primary w-100" type="button">Añadir una nueva noticia</a></td>     
     </tr>
   </tbody>
 </table>

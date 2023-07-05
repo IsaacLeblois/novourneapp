@@ -1,5 +1,5 @@
 <%- layout('./layouts/main.ejs') %> 
-<h1 class="text-center mt-5 mb-3">Añadir un nuevo producto</h1>
+<h1 class="text-center mt-5 mb-3">Añadir una nueva noticia</h1>
 
 <form method="POST" action="/admin/create" class="d-flex flex-column align-items-center">
     <div class="form-floating mb-3 w-25">
@@ -7,13 +7,17 @@
         <label for="titleField">Titulo</label>
     </div>
     <div class="form-floating mb-3 w-25">
-        <input type="number" class="form-control" name="price" placeholder="Password">
-        <label for="priceField">Precio</label>
+        <input type="text" class="form-control" name="author" placeholder="Password">
+        <label for="authorField">Autor</label>
+    </div>
+    <div class="form-floating mb-3 w-25">
+        <input type="textarea" class="form-control" name="textbody" placeholder="Password">
+        <label for="textbodyField">Texto</label>
     </div>
     <div class="form-floating mb-3 w-25">
         <input type="text" class="form-control" name="thumbnail" placeholder="Password">
         <label for="thumbField">URL de la imagen</label>
     </div>
     <input class="btn btn-outline-success w-25 mb-1" type="submit"></input>
-    <a class="btn btn-outline-primary w-25" type="submit" href="/admin">Ver productos</a>
+    <a class="btn btn-outline-primary w-25" type="submit" href="/admin">Ver noticias</a>
 </form>

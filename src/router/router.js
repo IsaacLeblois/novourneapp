@@ -3,7 +3,7 @@ const router = express.Router()
 const passport = require('passport')
 const log4js = require('log4js')
 const logger = log4js.getLogger()
-const productsModel = require('../models/product')
+const newsModel = require('../models/news')
 const cartModel = require('../models/cart')
 const orderModel = require('../models/order')
 const userModel = require('../models/user')
@@ -15,12 +15,12 @@ router.get('/', (req, res, next) => {
 })
 
 router.get('/home', (req, res, next) => {
-    productsModel.find().exec((err, products) => {
+    newsModel.find().exec((err, news) => {
         if(err) {
             res.send('ERROR AL CARGAR LOS PRODUCTOS')
         } else {
             res.render('home', {
-                products: products,
+                news: news,
             })
         }
     })
@@ -178,12 +178,12 @@ router.get('/job', isAuthenticated, (req, res, next) => {
 
 //ADMIN
 router.get('/admin', isAuthenticated, isAdmin, (req, res, next) => {
-    productsModel.find().exec((err, products) => {
+    newsModel.find().exec((err, news) => {
         if(err) {
             res.send('ERROR AL CARGAR LOS PRODUCTOS')
         } else {
             res.render('admin', {
-                products: products,
+                news: news,
             })
         }
     })
@@ -194,12 +194,12 @@ router.get('/admin/create', isAuthenticated, isAdmin, (req, res, next) => {
 })
 
 router.post('/admin/create', isAuthenticated, isAdmin, async (req, res, next) => {
-    if(!req.body.title || !req.body.price || !req.body.thumbnail) {
+    if(!req.body.title || !req.body.author || !req.body.textbody || !req.body.thumbnail) {
         res.send('Debes ingresar todos los campos.')
     } else {
-        const newProd = req.body
-        productsModel.create(newProd)
-        res.send('Producto agregado exitosamente')
+        const newNotice = req.body
+        newsModel.create(newNotice)
+        res.send('Noticia agregada exitosamente')
     }
 })
 
@@ -211,11 +211,11 @@ router.get('/404', (req, res, next) => {
     res.render('404')
 })
 
-//PRODUCT
+//NEWS
 router.get('/:id', async (req, res, next) => {
     try {
-        const producto = await productsModel.findById(req.params.id)
-        res.render('product', {producto})
+        const notice = await newsModel.findById(req.params.id).exec()
+        res.render('notice', {notice})
     } catch(err) {
         res.redirect('/404')
     }
