@@ -6,6 +6,8 @@ const logger = log4js.getLogger()
 const productsModel = require('../models/product')
 const cartModel = require('../models/cart')
 const orderModel = require('../models/order')
+const userModel = require('../models/user')
+const user = require('../models/user')
 
 //HOME
 router.get('/', (req, res, next) => {
@@ -74,6 +76,41 @@ router.get('/profile', isAuthenticated, (req, res, next) => {
     res.render('profile')
 })
 
+router.post('/profile/update', isAuthenticated, async (req, res, next) => {
+    try {
+        const oldProfile = await userModel.findOne({ email: req.user.email }).exec()
+
+        let thumb
+        if(req.body.photo == '') {
+            thumb = null
+        } else {
+            thumb = req.body.photo
+        }
+        
+        const newProfile = {
+            email: req.body.email,
+            name: req.body.name,
+            lastname: req.body.lastname,
+            age: req.body.age,
+            photo: thumb
+        }
+    
+        try {
+            await userModel.findOneAndUpdate({ email: oldProfile.email }, { email: newProfile.email, name: newProfile.name, lastname: newProfile.lastname, age: newProfile.age, photo: newProfile.photo }, {upsert: true}).exec()
+            logger.info('Perfil de '+ oldProfile.name + ' ' + oldProfile.lastname + ' actualizado exitosamente')
+            res.redirect('/profile')
+        } catch(err) {
+            logger.error(err)
+        }
+    } catch(err) {
+        logger.error(err)
+    }
+})
+
+router.post('/profile/password/update', isAuthenticated, (req, res, next) => {
+    res.redirect('/501')
+})
+
 router.get('/cart', isAuthenticated, async (req, res, next) => {
     const userCart = await cartModel.findOne({ user: req.user.name }).exec()
     
@@ -131,6 +168,10 @@ router.post('/cart', async (req, res, next) => {
     res.render('thanks')
 })
 
+router.get('/job', isAuthenticated, (req, res, next) => {
+    res.render('job')
+})
+
 //ADMIN
 router.get('/admin', isAuthenticated, isAdmin, (req, res, next) => {
     productsModel.find().exec((err, products) => {
@@ -158,13 +199,21 @@ router.post('/admin/create', isAuthenticated, isAdmin, async (req, res, next) =>
     }
 })
 
+router.get('/501', (req, res, next) => {
+    res.render('501')
+})
+
+router.get('/404', (req, res, next) => {
+    res.render('404')
+})
+
 //PRODUCT
 router.get('/:id', async (req, res, next) => {
     try {
         const producto = await productsModel.findById(req.params.id)
         res.render('product', {producto})
     } catch(err) {
-        res.render('404')
+        res.redirect('/404')
     }
 })
 

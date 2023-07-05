@@ -24,7 +24,7 @@ log4js.configure({
     }
 })
 const logger = log4js.getLogger()
-logger.trace('Database Branch v0.0.1')
+logger.trace('Master Branch v0.0.2')
 
 //MIDDLEWARES
 app.set('views', 'src/views')

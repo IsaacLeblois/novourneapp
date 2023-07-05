@@ -7,13 +7,13 @@ const jwt = require('jsonwebtoken')
 
 passport.serializeUser((user, done) => {
     done(null, user.id)
-    logger.debug('Usuario '+user.name+' serializado')
+    logger.debug('Usuario '+user.name+' '+user.lastname+' serializado')
 })
 
 passport.deserializeUser( async (id, done) => {
     const user = await User.findById(id)
     done(null, user)
-    logger.debug('Usuario '+user.name+' deserializado')
+    logger.debug('Usuario '+user.name+' '+user.lastname+' deserializado')
 })
 
 passport.use('local-signup', new LocalStrategy({
@@ -42,7 +42,7 @@ passport.use('local-signup', new LocalStrategy({
         newUser.job = null
         newUser.photo = null
 
-        logger.info('Usuario '+newUser.name+' se ha registrado correctamente')
+        logger.info('Usuario '+newUser.name+' '+newUser.lastname+' se ha registrado correctamente')
         await newUser.save()
         done(null, newUser)
     }
@@ -73,9 +73,9 @@ passport.use('local-signin', new LocalStrategy({
     }, 'secretoDeIsaac', {expiresIn:'10m'})
 
     if(req.user.isAdmin) {
-        logger.info('Administrador '+user.name+' ha inciado sesion')
+        logger.info('Administrador '+user.name+' '+user.lastname+' ha inciado sesion')
     } else {
-        logger.info('Usuario '+user.name+' ha inciado sesion')
+        logger.info('Usuario '+user.name+' '+user.lastname+' ha inciado sesion')
     }
 
 }))

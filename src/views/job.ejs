@@ -1,0 +1,9 @@
+<%- layout('./layouts/main.ejs') %> 
+
+<% if(user.job == "president") { %> 
+    <h1 class="text-center mt-5">BIENVENIDO PRESIDENTE</h1>
+<% } else if(user.job == "developer" ) { %>
+    <h1 class="text-center mt-5">BIENVENIDO DESARROLLADOR</h1>
+<% } else { %>
+    <h1 class="text-center mt-5">Estás desempleado</h1>
+<% } %>
