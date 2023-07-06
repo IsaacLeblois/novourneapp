@@ -32,12 +32,12 @@ router.get('/discord', (req, res, next) => {
 
 //SOCIAL
 router.get('/social', isAuthenticated, async (req, res, next) => {
-    userModel.find().exec((err, users) => {
+    userModel.find().sort({isVerified: -1, name: 1}).exec((err, users) => {
         if (err) {
-            res.send('ERROR AL CARGAR LOS PRODUCTOS')
+            res.send('ERROR AL CARGAR LOS USUARIOS')
         } else {
             res.render('social', {
-                users: users,
+                data: users,
             })
         }
     })

@@ -80,6 +80,13 @@
     border-radius: 20px;
 }
 
+.plastico2 {
+    width: 700px;
+    height: 200px;
+    background-color: white;
+    border-radius: 20px;
+}
+
 .chip {
     position: relative;
     left: 100px;

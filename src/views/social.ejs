@@ -1,0 +1,37 @@
+<div class="rainbow-box"></div>
+<%- layout('./layouts/main.ejs') %> 
+
+<h1 class="text-center mt-5 text-white popp">Social</h1>
+
+<div class="m-5 d-flex justify-content-center">
+    <div class="col d-flex flex-column align-items-center">
+        <h4 class="mb-5">Personas que quizá conozcas</h4>
+        <% data.forEach(e => { %>
+            <div class="m-3">
+                <div class="plastico2 d-flex align-items-center p-4 sombra">
+                    <div class="">
+                        <div class="profcont">
+                            <img src=<%= e.photo %> alt="perfil" class="profimg">
+                        </div>
+                    </div>
+                    <div class="mx-4">
+                        <div>
+                            <% if(e.isVerified) { %>
+                                <div class="d-flex justify-content-center">
+                                    <h3 class="p-2"><%= e.name %> <%= e.lastname %></h3>
+                                    <img src="assets/verified.png" alt="verificado" width="20" height="20">
+                                </div>
+                            <% } else { %>
+                                <h3 class="p-2"><%= e.name %> <%= e.lastname %></h3> 
+                            <% } %>
+                            <p class="mx-1">@<%= e.username %></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+    <div class="col d-flex flex-column align-items-center">
+        <h4 class="mb-5">Publicaciones</h4>
+    </div>
+</div>
