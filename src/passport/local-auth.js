@@ -38,6 +38,7 @@ passport.use('local-signup', new LocalStrategy({
         newUser.password = newUser.encryptPassword(password)
         newUser.name = req.body.name
         newUser.lastname = req.body.lastname
+        newUser.username = req.body.username
         newUser.age = req.body.age
         newUser.gender = req.body.gender
         newUser.role = null
