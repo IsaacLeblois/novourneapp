@@ -10,9 +10,15 @@
             <div class="m-2">
                 <div class="plastico2 d-flex align-items-center p-4 sombra">
                     <div class="">
-                        <div class="profcont2">
-                            <img src=<%= e.photo %> alt="perfil" class="profimg">
-                        </div>
+                        <% if(e.photo != null) { %>
+                            <div class="profcont2">
+                                <img src=<%= e.photo %> alt="perfil" class="profimg">
+                            </div>
+                        <% } else { %> 
+                            <div class="profcont2">
+                                <img src=assets/noimage.jpg alt="perfil" class="profimg">
+                            </div>
+                        <% } %> 
                     </div>
                     <div class="mx-4">
                         <div>
