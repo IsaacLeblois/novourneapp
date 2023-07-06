@@ -82,9 +82,16 @@
 
 .plastico2 {
     width: 700px;
-    height: 200px;
+    height: 150px;
     background-color: white;
     border-radius: 20px;
+}
+
+.profcont2 {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
 }
 
 .chip {
