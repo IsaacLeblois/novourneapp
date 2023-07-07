@@ -84,20 +84,25 @@
     width: 350px;
     height: 200px;
     background-color: rgb(66, 142, 255);
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 .plastico2 {
     width: 700px;
     height: 150px;
     background-color: white;
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 .plastico3 {
     width: 700px;
     background-color: white;
-    border-radius: 20px;
+    border-radius: 10px;
+}
+
+.plastico:hover, .plastico2:hover, .plastico3:hover {
+    scale: 1.02;
+    transition-duration: 0.2s;
 }
 
 .profcont2 {

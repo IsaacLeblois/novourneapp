@@ -13,7 +13,6 @@ const postSchema = new Schema({
         },
         photo: {
             type: String,
-            required: true
         },
         isVerified: {
             type: Boolean,

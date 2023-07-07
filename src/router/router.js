@@ -38,7 +38,7 @@ router.get('/social', isAuthenticated, async (req, res, next) => {
         if (err) {
             res.render('social')
         } else {
-            postModel.find().exec((err2, posts) => {
+            postModel.find().sort({createdAt: -1}).exec((err2, posts) => {
                 if(err2) {
                     res.render('social', {
                         users: users

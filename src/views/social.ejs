@@ -69,7 +69,8 @@
                                         <div>
                                             <p class="px-2">
                                                 <% let date = e.createdAt %>
-                                                <%= date.getDate() %>/<%= date.getMonth()+1 %>/<%= date.getFullYear() %> <%= date.getHours()-1 %>:<%= date.getMinutes()%>
+                                                <% let minutes = date.getMinutes() %>
+                                                <%= date.getDate() %>/<%= date.getMonth()+1 %>/<%= date.getFullYear() %> <%= date.getHours()-1 %>:<% if(minutes<10) { %>0<%= minutes %><% } else { %><%= minutes %><% } %>
                                             </p>
                                         </div>
                                     </div>
@@ -88,7 +89,13 @@
                 <img src="assets/triste.png" alt="triste" width="200">
                 <h4 class="text-center text-white popp mt-3">Aún no hay publicaciones</h4>
             <% } %>
-            <button class="btn btn-light rounded mt-3" data-toggle="modal" data-target=".postModal">Crear publicacion</button>
+            <% if(user.isVerified) { %>
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn-light rounded mt-3" data-toggle="modal" data-target=".postModal">Crear publicacion</button>
+                </div>
+            <% } else { %>
+                <h4 class="text-center text-white popp mt-3">Aún no eres usuario verificado.</h4>
+            <% } %>
         </div>
     </div>
 </div>
