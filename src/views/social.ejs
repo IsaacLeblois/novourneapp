@@ -6,7 +6,7 @@
 <div class="m-5 d-flex justify-content-center">
     <div class="col d-flex flex-column align-items-center">
         <h4 class="mb-3">Personas que quizá conozcas</h4>
-        <% data.forEach(e => { %>
+        <% users.forEach(e => { %>
             <div class="m-2">
                 <div class="plastico2 d-flex align-items-center p-4 sombra">
                     <div class="">
@@ -38,10 +38,115 @@
         <% }) %>
     </div>
     <div class="col d-flex flex-column align-items-center">
-        <h4 class="mb-5">Publicaciones</h4>
-        <div class="d-flex flex-column align-items-center m-5">
-            <img src="assets/triste.png" alt="triste" width="200">
-            <h4 class="text-center text-white popp mt-3">Aún no hay publicaciones</h4>
+        <h4 class="mb-3">Publicaciones</h4>
+        <div class="d-flex flex-column align-items-center">
+            <% if(posts.length>0) { %>
+                <% posts.forEach(e => { %>
+                    <div class="m-2">
+                        <div class="plastico3 d-flex p-4 sombra">
+                            <div class="">
+                                <% if(e.author.photo != null) { %>
+                                    <div class="profcont2">
+                                        <img src=<%= e.author.photo %> alt="perfil" class="profimg">
+                                    </div>
+                                <% } else { %> 
+                                    <div class="profcont2">
+                                        <img src=assets/noimage.jpg alt="perfil" class="profimg">
+                                    </div>
+                                <% } %> 
+                            </div>
+                            <div class="mx-4 w-100">
+                                <div>
+                                    <div class="d-flex justify-content-between">
+                                        <% if(e.author.isVerified) { %>
+                                            <div class="d-flex">
+                                                <h5 class="p-2"><%= e.author.name %> <%= e.author.lastname %></h5>
+                                                <img src="assets/verified.png" alt="verificado" width="20" height="20">
+                                            </div>
+                                        <% } else { %>
+                                            <h5 class="p-2"><%= e.author.name %> <%= e.author.lastname %></h5> 
+                                        <% } %>
+                                        <div>
+                                            <p class="px-2">
+                                                <% let date = e.createdAt %>
+                                                <%= date.getDate() %>/<%= date.getMonth()+1 %>/<%= date.getFullYear() %> <%= date.getHours()-1 %>:<%= date.getMinutes()%>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <p class="text-break px-2"><%= e.textbody %></p>
+                                </div>
+                                <% if(e.thumbnail) { %>
+                                    <div class="postImgCont w-100">
+                                        <img src=<%= e.thumbnail %> alt="imagen" class="postImg">
+                                    </div>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <img src="assets/triste.png" alt="triste" width="200">
+                <h4 class="text-center text-white popp mt-3">Aún no hay publicaciones</h4>
+            <% } %>
+            <button class="btn btn-light rounded mt-3" data-toggle="modal" data-target=".postModal">Crear publicacion</button>
         </div>
     </div>
 </div>
+
+<div class="modal fade postModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded">
+          <div class="card-body p-5">
+              <h3 class="mb-4 text-center">Crear una publicacion</h3>
+              <form action="/social/post" method="POST" class="d-grid gap-2">
+  
+                  <div class="form-group">
+
+                    <div class="d-flex align-items-center my-3">
+                        <div>
+                            <% if(user.photo != null) { %>
+                                <div class="profcont3">
+                                    <img src=<%= user.photo %> alt="perfil" class="profimg">
+                                </div>
+                            <% } else { %> 
+                                <div class="profcont3">
+                                    <img src=assets/noimage.jpg alt="perfil" class="profimg">
+                                </div>
+                            <% } %> 
+                        </div>
+                        <div class="mx-4">
+                            <div>
+                                <% if(user.isVerified) { %>
+                                    <div class="d-flex justify-content-center">
+                                        <h5 class="px-2"><%= user.name %> <%= user.lastname %></h5>
+                                        <img src="assets/verified.png" alt="verificado" width="20" height="20">
+                                    </div>
+                                <% } else { %>
+                                    <h5 class="p-2"><%= user.name %> <%= user.lastname %></h5> 
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea class="form-control rounded" name="textbody" rows="5" placeholder="Escribe algo..." maxlength="320"></textarea>
+                    </div>
+
+                    <div class="form-group my-3">
+                        <input class="form-control rounded" type="text" name="photo" placeholder="Agrega una imagen">
+                    </div>
+  
+                  <div class="row mt-4">
+                      <div class="col">
+                          <button class="btn btn-primary w-100 rounded" data-dismiss="modal">Volver</button>
+                      </div>
+                      <div class="col">
+                          <button class="btn btn-success w-100 rounded" type="submit">Publicar</button>
+                      </div>
+                  </div>
+  
+              </form>
+          </div>
+      </div>
+    </div>
+  </div>

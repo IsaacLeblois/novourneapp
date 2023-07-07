@@ -1,0 +1,27 @@
+const mongoose = require('mongoose')
+const { Schema } = mongoose
+
+const postSchema = new Schema({
+    author:{
+        name: {
+            type: String,
+            required: true
+        },
+        lastname: {
+            type: String,
+            required: true
+        },
+        photo: {
+            type: String,
+            required: true
+        },
+        isVerified: {
+            type: Boolean,
+        },
+    },
+    textbody: { type: String, required: true },
+    categories: { type: Array },
+    thumbnail: { type: String, default: null }
+}, {timestamps: true})
+
+module.exports = mongoose.model('posts', postSchema)

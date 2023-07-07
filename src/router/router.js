@@ -7,7 +7,9 @@ const newsModel = require('../models/news')
 const cartModel = require('../models/cart')
 const orderModel = require('../models/order')
 const userModel = require('../models/user')
+const postModel = require('../models/post')
 const accountsModel = require('../models/accounts')
+const user = require('../models/user')
 
 //INDEX
 router.get('/', (req, res, next) => {
@@ -34,13 +36,53 @@ router.get('/discord', (req, res, next) => {
 router.get('/social', isAuthenticated, async (req, res, next) => {
     userModel.find().sort({isVerified: -1, name: 1}).exec((err, users) => {
         if (err) {
-            res.send('ERROR AL CARGAR LOS USUARIOS')
+            res.render('social')
         } else {
-            res.render('social', {
-                data: users,
-            })
+            postModel.find().exec((err2, posts) => {
+                if(err2) {
+                    res.render('social', {
+                        users: users
+                    })                } else {
+                    res.render('social', {
+                        users: users,
+                        posts: posts
+                    })
+                }
+            }) 
         }
     })
+})
+
+router.post('/social/post', isAuthenticated, async (req, res, next) => {
+    try {
+        let thumb
+        if (req.body.photo == '') {
+            thumb = null
+        } else {
+            thumb = req.body.photo
+        }
+
+        const newPost = {
+            author: {
+                name: req.user.name,
+                lastname: req.user.lastname,
+                photo: req.user.photo,
+                isVerified: req.user.isVerified
+            },
+            textbody: req.body.textbody,
+            thumbnail: thumb
+        }
+
+        try {
+            await postModel.create(newPost)
+            logger.info('Nuevo post de ' + user.name + ' ' + user.lastname + ' creado exitosamente')
+            res.redirect('/social')
+        } catch (err) {
+            logger.error(err)
+        }
+    } catch (err) {
+        logger.error(err)
+    }
 })
 
 //BANK

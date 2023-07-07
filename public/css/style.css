@@ -12,6 +12,12 @@
     display: flex;
 }
 
+.profcont3 {
+    border-radius: 50%;
+    width: 100px;
+    display: flex;
+}
+
 .profimg {
     border-radius: 50%;
     width: 100%;
@@ -87,6 +93,12 @@
     border-radius: 20px;
 }
 
+.plastico3 {
+    width: 700px;
+    background-color: white;
+    border-radius: 20px;
+}
+
 .profcont2 {
     border-radius: 50%;
     width: 100px;
@@ -104,4 +116,12 @@
     font-weight: 700;
     font-size: 26px;
     line-height: 32px;
+}
+
+.postImgCont {
+    text-align: center;
+}
+
+.postImg {
+    max-height: 200px;
 }
