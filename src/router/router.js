@@ -126,15 +126,7 @@ router.get('/bank', isAuthenticated, async (req, res, next) => {
 
 //MARKET
 router.get('/market', isAuthenticated, async (req, res, next) => {
-    salesModel.find().exec((err, sales) => {
-        if (err) {
-            res.send('ERROR AL CARGAR LOS PRODUCTOS')
-        } else {
-            res.render('market', {
-                sales: sales,
-            })
-        }
-    })
+    res.redirect("/501")
 })
 
 //AUTH
