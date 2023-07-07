@@ -100,7 +100,14 @@
     border-radius: 10px;
 }
 
-.plastico:hover, .plastico2:hover, .plastico3:hover {
+.plastico4 {
+    margin: 5%;
+    width: 500px;
+    background-color: #1e2124;
+    border-radius: 10px;
+}
+
+.plastico:hover, .plastico2:hover, .plastico3:hover, .plastico4:hover {
     scale: 1.02;
     transition-duration: 0.2s;
 }
