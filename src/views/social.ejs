@@ -1,45 +1,48 @@
-<div class="rainbow-box"></div>
+<div class="background-box"></div>
 <%- layout('./layouts/main.ejs') %> 
 
-<h1 class="text-center mt-5 text-white popp">Social</h1>
 
-<div class="m-5 d-flex justify-content-center">
-    <div class="col d-flex flex-column align-items-center">
-        <h4 class="mb-3">Personas que quizá conozcas</h4>
-        <% users.forEach(e => { %>
-            <div class="m-2">
-                <div class="plastico2 d-flex align-items-center p-4 sombra">
-                    <div class="">
-                        <% if(e.photo != null) { %>
-                            <div class="profcont2">
-                                <img src=<%= e.photo %> alt="perfil" class="profimg">
-                            </div>
-                        <% } else { %> 
-                            <div class="profcont2">
-                                <img src=assets/noimage.jpg alt="perfil" class="profimg">
-                            </div>
-                        <% } %> 
-                    </div>
-                    <div class="mx-4">
+<div class="d-flex">
+    <div class="col bg-dark">
+        <h1 class="text-center mt-4 text-white popp">Social</h1>
+        <h4 class="mb-4 text-center">Otros jugadores</h4><hr>
+
+        <div class="mx-4">
+            <% users.forEach(e => { %>
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <div class="d-flex">
+                    <div class="d-flex m-2 align-items-center">
                         <div>
-                            <% if(e.isVerified) { %>
-                                <div class="d-flex justify-content-center">
-                                    <h3 class="p-2"><%= e.name %> <%= e.lastname %></h3>
-                                    <img src="assets/verified.png" alt="verificado" width="20" height="20">
+                            <% if(e.photo != null) { %>
+                                <div class="profcont3">
+                                    <img src=<%= e.photo %> alt="perfil" class="profimg">
                                 </div>
-                            <% } else { %>
-                                <h3 class="p-2"><%= e.name %> <%= e.lastname %></h3> 
-                            <% } %>
-                            <p class="mx-1">@<%= e.username %></p>
+                            <% } else { %> 
+                                <div class="profcont3">
+                                    <img src=assets/noimage.jpg alt="perfil" class="profimg">
+                                </div>
+                            <% } %> 
                         </div>
                     </div>
+                    <div class="d-flex flex-column m-2 justify-content-center">
+                        <% if(e.isVerified) { %>
+                            <div class="d-flex text-white fs-4"><%= e.name %> <%= e.lastname %><img src="assets/verified.png" alt="verificado" width="15" height="15" class="align-self-start m-1"></div>
+                            <div><%= e.username %></div>
+                        <% } else { %>
+                            <div class="text-white fs-4"><%= e.name %> <%= e.lastname %></div>
+                            <div><%= e.username %></div>
+                        <% } %>
+                    </div>
                 </div>
-            </div>
-        <% }) %>
+                <div>
+                    <button href="/<%= e.username %>" class="btn btn-primary rounded" disabled>perfil</button>
+                </div>
+            </div><hr>
+            <% }) %>
+        </div>
     </div>
-    <div class="col d-flex flex-column align-items-center">
-        <h4 class="mb-3">Publicaciones</h4>
-        <div class="d-flex flex-column align-items-center">
+    <div class="col mx-5 d-flex flex-column align-items-center">
+        <div class="d-flex flex-column align-items-center mt-3">
             <% if(posts.length>0) { %>
                 <% posts.forEach(e => { %>
                     <div class="m-2">
@@ -89,14 +92,21 @@
                 <img src="assets/triste.png" alt="triste" width="200">
                 <h4 class="text-center text-white popp mt-3">Aún no hay publicaciones</h4>
             <% } %>
-            <% if(user.isVerified) { %>
-                <div class="d-flex justify-content-center">
-                    <button class="btn btn-light rounded mt-3" data-toggle="modal" data-target=".postModal">Crear publicacion</button>
-                </div>
-            <% } else { %>
-                <h4 class="text-center text-white popp mt-3">Aún no eres usuario verificado.</h4>
-            <% } %>
         </div>
+    </div>
+    
+    <div class="col mx-5 d-flex flex-column align-items-center">
+        <% if(user.isVerified) { %>
+            <div class="d-flex flex-column justify-content-center mt-3 w-75">
+                <button class="btn btn-light rounded mt-3" data-toggle="modal" data-target=".postModal">Crear publicacion</button>
+                <h4 class="text-center text-white popp mt-3">Eres usuario verificado.</h4>
+            </div>
+        <% } else { %>
+            <div class="d-flex flex-column justify-content-center mt-3 w-75">
+                <button class="btn btn-light rounded mt-3" data-toggle="modal" data-target=".postModal" disabled>Crear publicacion</button>
+                <h4 class="text-center text-white popp mt-3">Aún no eres usuario verificado.</h4>
+            </div>
+        <% } %>
     </div>
 </div>
 

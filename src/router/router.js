@@ -85,6 +85,18 @@ router.post('/social/post', isAuthenticated, async (req, res, next) => {
     }
 })
 
+router.get('/social/:id', async (req, res, next) => {
+    try {
+        const player = await userModel.findOne({ _id: req.params.id }).exec()
+        logger.info(player)
+        res.render('player', {
+            player: player
+        })
+    } catch (err) {
+        res.redirect('/404')
+    }
+})
+
 //BANK
 router.get('/bank', isAuthenticated, async (req, res, next) => {
     const userAccount = await accountsModel.findOne({ user: req.user.id }).exec()
@@ -215,15 +227,6 @@ router.post('/profile/password/update', isAuthenticated, (req, res, next) => {
     res.redirect('/501')
 })
 
-router.get('/profile/:id', async (req, res, next) => {
-    try {
-        const player = await userModel.findById(req.params.id).exec()
-        res.render('player', { player })
-    } catch (err) {
-        res.redirect('/404')
-    }
-})
-
 router.get('/cart', isAuthenticated, async (req, res, next) => {
     const userCart = await cartModel.findOne({ user: req.user.name }).exec()
 
@@ -317,6 +320,10 @@ router.get('/501', (req, res, next) => {
 })
 
 router.get('/404', (req, res, next) => {
+    res.render('404')
+})
+
+router.get('/:ruta', (req, res, next) => {
     res.render('404')
 })
 
