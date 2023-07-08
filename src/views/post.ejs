@@ -1,0 +1,169 @@
+<div class="background-box"></div>
+<%- layout('./layouts/profilemain.ejs') %> 
+
+<div class="d-flex">
+    <div class="col"></div>
+
+    <div class="col mx-5 d-flex flex-column align-items-center">
+        <div class="d-flex flex-column align-items-center mt-3">
+            <div class="m-2">
+                <div class="plastico5 sombra">
+                    <div class="d-flex p-4">
+                        <div class="">
+                            <% if(post.author.photo != null) { %>
+                                <div class="profcont2">
+                                    <img src=<%= post.author.photo %> alt="perfil" class="profimg">
+                                </div>
+                            <% } else { %> 
+                                <div class="profcont2">
+                                    <img src=../assets/noimagpost.jpg alt="perfil" class="profimg">
+                                </div>
+                            <% } %> 
+                        </div>
+                        <div class="mx-4 w-100">
+                            <div>
+                                <div class="d-flex justify-content-between">
+                                    <% if(post.author.isVerified) { %>
+                                        <div class="d-flex">
+                                            <h5 class="p-2"><%= post.author.name %> <%= post.author.lastname %></h5>
+                                            <img src="../assets/verified.png" alt="verificado" width="20" height="20">
+                                        </div>
+                                    <% } else { %>
+                                        <h5 class="p-2"><%= post.author.name %> <%= post.author.lastname %></h5> 
+                                    <% } %>
+                                    <div>
+                                        <p class="px-2">
+                                            <% let date = post.createdAt %>
+                                            <% let minutes = date.getMinutes() %>
+                                            <%= date.getDate() %>/<%= date.getMonth()+1 %>/<%= date.getFullYear() %> <%= date.getHours()-1 %>:<% if(minutes<10) { %>0<%= minutes %><% } else { %><%= minutes %><% } %>
+                                        </p>
+                                    </div>
+                                </div>
+                                <p class="text-break px-2"><%= post.textbody %></p>
+                            </div>
+                            <% if(post.thumbnail) { %>
+                                <div class="postImgCont w-100">
+                                    <img src=<%= post.thumbnail %> alt="imagen" class="postImg">
+                                </div>
+                            <% } %>
+                        </div>
+                    </div><hr>
+                    <div>
+                        <h5 class="mx-4 mb-4">Comentarios</h5>
+                        <div class="d-flex flex-column align-items-center">
+                        <% if(post.comments==0) { %>
+                            <h4 class="text-center popp pb-3">No hay comentarios</h4>
+                        <% } else { %>
+                            <% post.comments.forEach(e => { %>
+                                <div class="d-flex align-items-center w-100 px-5">
+                                    <div class="d-flex">
+                                        <div class="d-flex mx-2">
+                                            <div>
+                                                <% if(e.author.photo != null) { %>
+                                                    <div class="profcont3">
+                                                        <img src=<%= e.author.photo %> alt="perfil" class="profimg">
+                                                    </div>
+                                                <% } else { %> 
+                                                    <div class="profcont3">
+                                                        <img src=../assets/noimage.jpg alt="perfil" class="profimg">
+                                                    </div>
+                                                <% } %> 
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-column m-2 justify-content-center">
+                                            <% if(e.author.isVerified) { %>
+                                                <div class="d-flex fs-4"><%= e.author.name %> <%= e.author.lastname %><img src="../assets/verified.png" alt="verificado" width="15" height="15" class="align-self-start m-1"></div>
+                                                <div class="text-break"><%= e.textcomment %></div>
+                                            <% } else { %>
+                                                <div class="fs-4"><%= e.author.name %> <%= e.author.lastname %></div>
+                                                <div class="text-break"><%= e.textcomment %></div>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% if(e.thumbnail) { %>
+                                    <div class="postImgCont w-100">
+                                        <img src=<%= e.thumbnail %> alt="imagen" class="postImg">
+                                    </div>
+                                <% } %>
+                                <hr class="myHr">
+                                <% }) %>
+                        <% } %>
+                        <% if(user.isVerified) { %>
+                            <button class="btn btn-dark rounded mb-3" data-toggle="modal" data-target=".commentModal">Nuevo comentario</button>
+                        <% } else { %>
+                            <button class="btn btn-dark rounded mt-3" data-toggle="modal" data-target=".commentModal" disabled>Nuevo comentario</button>
+                            <p class="text-center popp my-3">Aún no eres usuario verificado.</p>
+                        <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col"></div>
+</div>
+
+<div class="modal fade commentModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded">
+          <div class="card-body p-5">
+              <h3 class="mb-4 text-center">Comentar publicacion</h3>
+              <form action="/posts/<%= post.id %>/" method="POST" class="d-grid gap-2">
+  
+                  <div class="form-group">
+
+                    <div class="d-flex align-items-center my-3">
+                        <div>
+                            <% if(user.photo != null) { %>
+                                <div class="profcont3">
+                                    <img src=<%= user.photo %> alt="perfil" class="profimg">
+                                </div>
+                            <% } else { %> 
+                                <div class="profcont3">
+                                    <img src=../assets/noimage.jpg alt="perfil" class="profimg">
+                                </div>
+                            <% } %> 
+                        </div>
+                        <div class="mx-4">
+                            <div>
+                                <% if(user.isVerified) { %>
+                                    <div class="d-flex justify-content-center">
+                                        <h5 class="px-2"><%= user.name %> <%= user.lastname %></h5>
+                                        <img src="../assets/verified.png" alt="verificado" width="20" height="20">
+                                    </div>
+                                <% } else { %>
+                                    <h5 class="p-2"><%= user.name %> <%= user.lastname %></h5> 
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea class="form-control rounded" name="textbody" rows="5" placeholder="Escribe algo..." maxlength="320"></textarea>
+                    </div>
+
+                    <div class="form-group my-3">
+                        <input class="form-control rounded" type="text" name="photo" placeholder="Agrega una imagen">
+                    </div>
+
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" disabled>
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Comentario anónimo</label>
+                      </div>
+  
+                  <div class="row mt-4">
+                      <div class="col">
+                          <button class="btn btn-primary w-100 rounded" data-dismiss="modal">Volver</button>
+                      </div>
+                      <div class="col">
+                          <button class="btn btn-success w-100 rounded" type="submit">Comentar</button>
+                      </div>
+                  </div>
+  
+              </form>
+          </div>
+      </div>
+    </div>
+  </div>

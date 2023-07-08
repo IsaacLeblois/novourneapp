@@ -5,7 +5,7 @@
 <div class="d-flex">
     <div class="col bg-dark">
         <h1 class="text-center mt-4 text-white popp">Social</h1>
-        <h4 class="mb-4 text-center">Otros jugadores</h4><hr>
+        <h4 class="mb-4 text-center text-white popp">Otros jugadores</h4><hr>
 
         <div class="mx-4">
             <% users.forEach(e => { %>
@@ -27,15 +27,12 @@
                     <div class="d-flex flex-column m-2 justify-content-center">
                         <% if(e.isVerified) { %>
                             <div class="d-flex text-white fs-4"><%= e.name %> <%= e.lastname %><img src="assets/verified.png" alt="verificado" width="15" height="15" class="align-self-start m-1"></div>
-                            <div><%= e.username %></div>
+                            <div class="text-white">@<%= e.username %></div>
                         <% } else { %>
                             <div class="text-white fs-4"><%= e.name %> <%= e.lastname %></div>
-                            <div><%= e.username %></div>
+                            <div class="text-white">@<%= e.username %></div>
                         <% } %>
                     </div>
-                </div>
-                <div>
-                    <button href="/<%= e.username %>" class="btn btn-primary rounded" disabled>perfil</button>
                 </div>
             </div><hr>
             <% }) %>
@@ -46,6 +43,7 @@
             <% if(posts.length>0) { %>
                 <% posts.forEach(e => { %>
                     <div class="m-2">
+                        <a href="/posts/<%= e.id %>" class="text-decoration-none">
                         <div class="plastico3 d-flex p-4 sombra">
                             <div class="">
                                 <% if(e.author.photo != null) { %>
@@ -84,8 +82,12 @@
                                         <img src=<%= e.thumbnail %> alt="imagen" class="postImg">
                                     </div>
                                 <% } %>
+                                <div class="text-end">
+                                    <%= e.comments.length %> <i class="far fa-comment"></i>
+                                </div>
                             </div>
                         </div>
+                        </a>
                     </div>
                 <% }) %>
             <% } else { %>

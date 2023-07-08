@@ -85,15 +85,63 @@ router.post('/social/post', isAuthenticated, async (req, res, next) => {
     }
 })
 
-router.get('/social/:id', async (req, res, next) => {
+router.get('/social/:id', isAuthenticated, async (req, res, next) => {
     try {
         const player = await userModel.findOne({ _id: req.params.id }).exec()
-        logger.info(player)
         res.render('player', {
             player: player
         })
     } catch (err) {
         res.redirect('/404')
+    }
+})
+
+router.get('/posts/:id', isAuthenticated, async (req, res, next) => {
+    try {
+        const post = await postModel.findOne({ _id: req.params.id }).exec()
+        const users = await userModel.find().exec()
+        res.render('post', {
+            post: post
+        })
+    } catch (err) {
+        res.redirect('/404')
+    }
+})
+
+router.post('/posts/:id', isAuthenticated, async (req, res, next) => {
+    try {
+        let thumb
+        if (req.body.photo == '') {
+            thumb = null
+        } else {
+            thumb = req.body.photo
+        }
+
+        const newComment = {
+            author: {
+                name: req.user.name,
+                lastname: req.user.lastname,
+                photo: req.user.photo,
+                isVerified: req.user.isVerified
+            },
+            textcomment: req.body.textbody,
+            thumbnail: thumb,
+        }
+
+        try {
+            const post = await postModel.findById(req.params.id)
+            const comments = post.comments
+
+            await comments.push(newComment)
+
+            await postModel.findByIdAndUpdate(req.params.id, {comments: comments})
+
+            res.redirect('/posts/'+req.params.id)
+        } catch (err) {
+            logger.error(err)
+        }
+    } catch (err) {
+        logger.error(err)
     }
 })
 

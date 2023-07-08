@@ -39,6 +39,12 @@
             </div>
         </div>
     </div>
+    <% if(!user.isVerified) { %>
+        <div class="d-flex flex-column align-items-center mt-5">
+            <h4 class="text-center text-white popp mt-3">Aún no eres usuario verificado</h4>
+            <p class="popp text-white">Contacta a los administradores.</p>
+        </div>
+    <% } %>
 </div>
 
 <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">

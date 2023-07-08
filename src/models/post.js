@@ -19,6 +19,7 @@ const postSchema = new Schema({
         },
     },
     textbody: { type: String, required: true },
+    comments: { type: Array },
     categories: { type: Array },
     thumbnail: { type: String, default: null }
 }, {timestamps: true})
