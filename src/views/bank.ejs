@@ -29,7 +29,7 @@
         <h4 class="text-white popp">Su cuenta tiene <%= account.balance %>.00 NVP.</h4>
         <% if(user.isVerified) { %>
             <div class="row w-75">
-                <button class="col btn btn-light rounded m-4" disabled>Pedir prestamo</button>
+                <button class="col btn btn-dark rounded m-4" disabled>Pedir prestamo</button>
                 <button class="col btn btn-info rounded m-4" data-toggle="modal" data-target=".transferModal">Transferir dinero</button>
             </div>
             <% } else { %>
@@ -45,6 +45,103 @@
     <% if(user.isVerified) { %>
         <p class="popp text-white text-center">Para retirar dinero acude a tu sucursal mas cercana.</p>
     <% } %>
+</div>
+<div class="m-5 d-flex justify-content-center">
+
+    <div class="col d-flex flex-column align-items-center">
+        <div class="plastico5 sombra bg-dark w-75">
+            <div>
+                <h4 class="popp m-2 text-center text-white">Historial de transacciones</h4>
+            </div>
+            <hr class="bg-light">
+            <div class="row">
+                <div class="col text-center text-white popp"><i class="fas fa-arrow-down"></i> Entradas</div>
+                <div class="col text-center text-white popp"><i class="fas fa-arrow-up"></i> Salidas</div>
+            </div>    
+            <div class="row">
+                <% if(transactionsFrom<1 && transactionsTo<1) { %>
+                    <div>
+                        <div class="d-flex flex-column align-items-center my-4">
+                            <img src="assets/triste.png" alt="triste" width="100">
+                            <h4 class="text-center text-white popp mt-3">Aqui no hay nada</h4>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <div class="row">
+                        <div class="col p-4">
+                        <% transactionsTo.forEach(e => { %>
+                            <% let date = e.createdAt %>
+                            <% let minutes = date.getMinutes() %>
+                            <div class="d-flex justify-content-between align-items-center mx-3">
+                                <% if(e.state == "transfered") { %>
+                                    <div class="d-flex align-items-center w-75">
+                                        <div class="bg-success thicon rounded"></div>
+                                        <div class="mx-3 text-white">
+                                            Recibido <%= e.quantity %>.00 NVP desde <%= e.from %>
+                                        </div>
+                                    </div>
+                                    <div class="popp text-white">
+                                        <%= date.getDate() %>/<%= date.getMonth()+1 %>/<%= date.getFullYear() %> <%= date.getHours()-1 %>:<% if(minutes<10) { %>0<%= minutes %><% } else { %><%= minutes %><% } %>
+                                    </div>
+                                <% } %>
+                            </div>
+                        <% }) %>
+                        </div>
+                        <div class="col p-4">
+                            <% transactionsFrom.forEach(e => { %>
+                                <% let date = e.createdAt %>
+                                <% let minutes = date.getMinutes() %>
+                                <div class="d-flex justify-content-between align-items-center mx-3">
+                                    <% if(e.state == "transfered") { %>
+                                        <div class="d-flex align-items-center w-75">
+                                            <div class="bg-success thicon rounded"></div>
+                                            <div class="mx-3 text-white">
+                                                Enviado <%= e.quantity %>.00 NVP a <%= e.to %>
+                                            </div>
+                                        </div>
+                                        <div class="popp text-white">
+                                            <%= date.getDate() %>/<%= date.getMonth()+1 %>/<%= date.getFullYear() %> <%= date.getHours()-1 %>:<% if(minutes<10) { %>0<%= minutes %><% } else { %><%= minutes %><% } %>
+                                        </div>
+                                    <% } else if(e.state == "rejected") { %>
+                                        <div class="d-flex align-items-center w-75">
+                                            <div class="bg-danger thicon rounded"></div>
+                                            <div class="mx-3 text-white">
+                                                Transaccion rechazada
+                                            </div>
+                                        </div>
+                                        <div class="popp text-white">
+                                            <%= date.getDate() %>/<%= date.getMonth()+1 %>/<%= date.getFullYear() %> <%= date.getHours()-1 %>:<% if(minutes<10) { %>0<%= minutes %><% } else { %><%= minutes %><% } %>
+                                        </div>
+                                    <% } else if(e.state == "nofounds") { %>
+                                        <div class="d-flex align-items-center w-75">
+                                            <div class="bg-warning thicon rounded"></div>
+                                            <div class="mx-3 text-white">
+                                                Fondos insuficientes
+                                            </div>
+                                        </div>
+                                        <div class="popp text-white">
+                                            <%= date.getDate() %>/<%= date.getMonth()+1 %>/<%= date.getFullYear() %> <%= date.getHours()-1 %>:<% if(minutes<10) { %>0<%= minutes %><% } else { %><%= minutes %><% } %>
+                                        </div>
+                                    <% } else { %>
+                                        <div class="d-flex align-items-center w-75">
+                                            <div class="bg-secondary thicon rounded"></div>
+                                            <div class="mx-3 text-white">
+                                                Cuenta <%= e.to %> inexistente
+                                            </div>
+                                        </div>
+                                        <div class="popp text-white">
+                                            <%= date.getDate() %>/<%= date.getMonth()+1 %>/<%= date.getFullYear() %> <%= date.getHours()-1 %>:<% if(minutes<10) { %>0<%= minutes %><% } else { %><%= minutes %><% } %>
+                                        </div>
+                                    <% } %>
+                                </div>
+                            <% }) %>
+                            </div>
+                    </div>
+                <% } %>
+            </div>        
+        </div>
+    </div>
+
 </div>
 
 <div class="modal fade transferModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
