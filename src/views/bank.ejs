@@ -1,4 +1,4 @@
-<div class="rainbow-box"></div>
+<div class="background-box"></div>
 <%- layout('./layouts/main.ejs') %> 
 
 <h1 class="text-center mt-5 text-white popp">Banco</h1>
@@ -29,7 +29,7 @@
         <h4 class="text-white popp">Su cuenta tiene <%= account.balance %>.00 NVP.</h4>
         <% if(user.isVerified) { %>
             <div class="row w-75">
-                <button class="col btn btn-dark rounded m-4" disabled>Pedir prestamo</button>
+                <button class="col btn btn-light rounded m-4" disabled>Pedir prestamo</button>
                 <button class="col btn btn-info rounded m-4" data-toggle="modal" data-target=".transferModal">Transferir dinero</button>
             </div>
             <% } else { %>
