@@ -9,6 +9,7 @@ const orderModel = require('../models/order')
 const userModel = require('../models/user')
 const postModel = require('../models/post')
 const accountsModel = require('../models/accounts')
+const transactionModel = require('../models/transaction')
 const user = require('../models/user')
 
 //INDEX
@@ -181,6 +182,73 @@ router.get('/bank', isAuthenticated, async (req, res, next) => {
         res.render('bank', {
             account: userAccount
         })
+    }
+})
+
+router.post('/bank/transfer', isAuthenticated, async (req, res, next) => {
+    try {
+        const account1 = await accountsModel.findOne({ cardNumber: req.body.from }).exec()
+        const cardFrom = account1.cardNumber
+        const account2 = await accountsModel.findOne({ cardNumber: req.body.to }).exec()
+
+        const wrong = {
+            from: cardFrom,
+            to: req.body.to,
+            quantity: req.body.cant,
+            concept: req.body.concept,
+            state: "wrong"
+        }
+
+        const noFounds = {
+            from: cardFrom,
+            to: req.body.to,
+            quantity: req.body.cant,
+            concept: req.body.concept,
+            state: "nofounds"
+        }
+
+        const rejected = {
+            from: cardFrom,
+            to: req.body.to,
+            quantity: req.body.cant,
+            concept: req.body.concept,
+            state: "rejected"
+        }
+
+        const ok = {
+            from: cardFrom,
+            to: req.body.to,
+            quantity: req.body.cant,
+            concept: req.body.concept,
+            state: "transfered"
+        }
+
+        if(!account2) {
+            await transactionModel.create(wrong)
+            logger.debug('TRANSACCION WRONG')
+            res.redirect('/bank')
+        } else {
+            if(account1.balance < req.body.cant) {
+                await transactionModel.create(noFounds)
+                logger.debug('TRANSACCION NOFOUNDS')
+                res.redirect('/bank')
+            } else {
+                if(req.body.from == req.body.to){
+                    await transactionModel.create(rejected)
+                    logger.debug('TRANSACCION REJECTED')
+                    res.redirect('/bank')
+                } else {
+                    await accountsModel.updateOne({ cardNumber: req.body.from }, {$inc: {"balance": -(req.body.cant)}})
+                    await accountsModel.updateOne({ cardNumber: req.body.to }, {$inc: {"balance": (req.body.cant)}})
+                    await transactionModel.create(ok)
+                    logger.debug('TRANSACCION OK')
+                    res.redirect('/bank')
+                }
+            }
+        }
+
+    } catch (err) {
+        logger.error(err)
     }
 })
 
