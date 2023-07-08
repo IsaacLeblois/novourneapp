@@ -150,8 +150,7 @@ router.post('/posts/:id', isAuthenticated, async (req, res, next) => {
 //BANK
 router.get('/bank', isAuthenticated, async (req, res, next) => {
     const userAccount = await accountsModel.findOne({ user: req.user.id }).exec()
-    const transactionsFrom = await transactionModel.find({ from: userAccount.cardNumber }).sort({ createdAt: -1 })
-    const transactionsTo = await transactionModel.find({$and: [{to: userAccount.cardNumber }, {state: "transfered"}]}).sort({ createdAt: -1 })
+    
 
     function generateCardNumber() {
         let min = 1000000000000000
@@ -184,6 +183,8 @@ router.get('/bank', isAuthenticated, async (req, res, next) => {
             transactionsTo: []
         })
     } else {
+        const transactionsFrom = await transactionModel.find({ from: userAccount.cardNumber }).sort({ createdAt: -1 })
+        const transactionsTo = await transactionModel.find({$and: [{to: userAccount.cardNumber }, {state: "transfered"}]}).sort({ createdAt: -1 })
         res.render('bank', {
             account: userAccount,
             transactionsFrom: transactionsFrom,
