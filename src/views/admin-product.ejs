@@ -1,0 +1,122 @@
+<div class="background-box"></div>
+<%- layout('./layouts/2main.ejs') %> 
+
+<h1 class="text-center m-5 text-white popp">Vista Previa</h1>
+
+<div class="d-flex justify-content-center">
+    <div class="d-flex w-100 align-items-center mb-5">
+        <div class="col d-flex justify-content-center">
+            <div class="prodsCont m-3">
+                <div class="plastico7 d-flex flex-column h-100 align-items-center w-100">
+                    <div class="mt-5">
+                        <div class="productCont">
+                            <img src=<%= product.thumbnail  %> alt="producto" class="productimg">
+                        </div>
+                    </div>
+                    <div class="w-100 px-4">
+                        <div class="align-self-start">
+                            <h4 class="mt-4"><%= product.title %></h4>
+                            <% if(product.isDiscounted) { %>
+                                <div>
+                                    <span class="mb-2 badge bg-warning text-dark">EN OFERTA</span>
+                                </div>
+                            <% } %>
+                            <div class="descCont">
+                                <%= product.description %>
+                            </div>
+                            <div class="d-flex flex-column align-items-end">
+                                <div class="d-flex flex-column align-items-end mb-3">
+                                    <span class="fs-1"><%= product.price %>.00 NVP</span>
+                                    <% if(product.deliveryPrice==0) { %>
+                                        <span class="text-warning">ENVIO GRATIS</span>
+                                    <% } else { %>
+                                        <span class="text-secondary">+ <%= product.deliveryPrice %>.00 NVP de envio</span>
+                                    <% } %>
+                                </div>
+                            </div>
+                            <div class="mb-2 d-flex justify-content-center">
+                                <p><%= product.seller %></p>
+                                <% if(product.seller=='Novourne') { %>
+                                    <img src="../../assets/verified.png" alt="verificado" width="20" height="20">
+                                <% } %>
+                            </div>
+                            <div class="w-100 p-2 text-center">
+                                <a href="#" class="btn btn-outline-success w-75 m-2 rounded">Comprar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col h-100">
+            <div class="card-body px-5 w-75">
+                <h3 class="mb-4 text-center text-white">Editar producto</h3>
+                <form action="/admin/market/<%= product.id %>" method="POST" class="d-grid gap-2">
+    
+                    <div class="form-group">
+  
+                      <div class="form-group my-3">
+                          <input class="form-control rounded" type="text" name="title" placeholder="Titulo" value=<%= product.title %> required>
+                      </div>
+                      
+                      <div class="form-group">
+                          <textarea class="form-control rounded" name="description" rows="5" placeholder="Descripcion" maxlength="320"><%= product.description %></textarea>
+                      </div>
+  
+                      <div class="form-group my-3">
+                          <div class="input-group">
+                              <input type="Number" class="form-control" placeholder="Precio" name="price" value=<%= product.price %> required>
+                              <div class="invalid-feedback">
+                                Cantidad
+                              </div>
+                              <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupPrepend">NVP</span>
+                              </div>
+                            </div>
+                      </div>
+
+                      <div class="form-group my-3">
+                          <div class="input-group">
+                              <input type="Number" class="form-control" placeholder="Costo de envio" name="deliveryPrice" value=<%= product.deliveryPrice %> required>
+                              <div class="invalid-feedback">
+                                Cantidad
+                              </div>
+                              <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupPrepend">NVP</span>
+                              </div>
+                            </div>
+                      </div>
+
+                      <div class="form-group my-3">
+                          <input class="form-control rounded" type="text" name="thumbnail" placeholder="Imagen" value=<%= product.thumbnail %> required>
+                      </div>
+                      
+                      <div class="form-group my-3">
+                          <input class="form-control rounded" type="text" name="seller" placeholder="Vendedor" value=<%= product.seller %> required>
+                      </div>
+
+                      <select class="form-select rounded" aria-label="Default select example" name="categories" multiple>
+                        <option value="Pociones">Pociones</option>
+                        <option value="Hogar">Hogar</option>
+                        <option value="Armas">Armas</option>
+                        <option value="Armaduras">Armaduras</option>
+                        <option value="Bloques">Bloques</option>
+                        <option value="Animales">Animales</option>
+                        <option value="Comida">Comida</option>
+                        <option value="Niños">Niños</option>
+                        <option value="Servicios">Servicios</option>
+                        <option value="Semillas">Semillas</option>
+                        <option value="Inmuebles">Inmuebles</option>
+                      </select>
+    
+                    <div class="row mt-4">
+                        <div class="col">
+                            <button class="btn btn-info w-100 rounded" type="submit">Editar</button>
+                        </div>
+                    </div>
+    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,140 @@
+<div class="background-box"></div>
+<%- layout('./layouts/profilemain.ejs') %> 
+
+<h1 class="text-center m-5 text-white popp">ADMIN MARKET</h1>
+
+<div class="d-flex">
+    <div class="col d-flex flex-column align-items-center justify-content-center">
+        <h3 class="text-white popp mb-3">Productos</h3>
+        <div class="plastico6">
+            <div class="d-flex pt-3">
+                <div class="col admint">Titulo</div>
+                <div class="col admint">Precio</div>
+                <div class="col admint">Imagen</div>
+                <div class="col admint">Accion</div>
+            </div><hr>
+            <% if(products.length>0) { %>
+                <% products.forEach(e => { %>
+                    <div class="d-flex align-items-center">
+                        <div class="col admint"><%= e.title %></div>
+                        <div class="col admint"><%= e.price %>.00 NVP</div>
+                        <div class="col admint">
+                            <img src=<%= e.thumbnail %> height="50">    
+                        </div>
+                        <div class="col admint">
+                            <a class="btn btn-dark rounded w-75" href="/admin/market/<%= e.id %>">Editar</a>
+                        </div>
+                    </div><hr>
+                <% }) %>
+            <% } else { %>
+                <div class="d-flex flex-column align-items-center mb-4">
+                    <h4 class="text-center popp mt-3">Aqui no hay nada</h4>
+                </div>
+            <% } %>
+        </div>
+        <div class="row mt-4 w-75">
+            <div class="col">
+                <button class="btn btn-info w-100 rounded" data-toggle="modal" data-target=".productModal">Agregar producto</button>
+            </div>
+        </div>
+    </div>
+    <div class="col d-flex justify-content-center">
+  
+    </div>
+  </div>
+
+  <div class="modal fade productModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded">
+          <div class="card-body p-5">
+              <h3 class="mb-4 text-center">Agregar producto</h3>
+              <form action="/admin/market" method="POST" class="d-grid gap-2">
+  
+                  <div class="form-group">
+
+                    <div class="form-group my-3">
+                        <input class="form-control rounded" type="text" name="title" placeholder="Titulo" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <textarea class="form-control rounded" name="description" rows="5" placeholder="Descripcion" maxlength="320"></textarea>
+                    </div>
+
+                    <div class="form-group my-3">
+                        <div class="input-group">
+                            <input type="Number" class="form-control" placeholder="Precio" name="price" required>
+                            <div class="invalid-feedback">
+                              Cantidad
+                            </div>
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="inputGroupPrepend">NVP</span>
+                            </div>
+                          </div>
+                    </div>
+
+                    <div class="form-group my-3">
+                        <input class="form-control rounded" type="text" name="thumbnail" placeholder="Imagen" required>
+                    </div>
+  
+                  <div class="row mt-4">
+                      <div class="col">
+                          <button class="btn btn-primary w-100 rounded" data-dismiss="modal">Volver</button>
+                      </div>
+                      <div class="col">
+                          <button class="btn btn-info w-100 rounded" type="submit">Agregar</button>
+                      </div>
+                  </div>
+  
+              </form>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade deleteModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded">
+          <div class="card-body p-5">
+              <h3 class="mb-4 text-center">Editar</h3>
+              <form action="/admin/market" method="POST" class="d-grid gap-2">
+  
+                  <div class="form-group">
+
+                    <div class="form-group my-3">
+                        <input class="form-control rounded" type="text" name="title" placeholder="Titulo" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <textarea class="form-control rounded" name="textbody" rows="5" placeholder="Descripcion" maxlength="320"></textarea>
+                    </div>
+
+                    <div class="form-group my-3">
+                        <div class="input-group">
+                            <input type="Number" class="form-control" placeholder="Precio" name="price" required>
+                            <div class="invalid-feedback">
+                              Cantidad
+                            </div>
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="inputGroupPrepend">NVP</span>
+                            </div>
+                          </div>
+                    </div>
+
+                    <div class="form-group my-3">
+                        <input class="form-control rounded" type="text" name="thumbnail" placeholder="Imagen" required>
+                    </div>
+  
+                  <div class="row mt-4">
+                      <div class="col">
+                          <button class="btn btn-primary w-100 rounded" data-dismiss="modal">Volver</button>
+                      </div>
+                      <div class="col">
+                          <button class="btn btn-info w-100 rounded" type="submit">Agregar</button>
+                      </div>
+                  </div>
+  
+              </form>
+          </div>
+      </div>
+    </div>
+  </div>

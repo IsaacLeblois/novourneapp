@@ -10,6 +10,7 @@ const userModel = require('../models/user')
 const postModel = require('../models/post')
 const accountsModel = require('../models/accounts')
 const transactionModel = require('../models/transaction')
+const productsModel = require('../models/product')
 const user = require('../models/user')
 const transaction = require('../models/transaction')
 
@@ -262,7 +263,27 @@ router.post('/bank/transfer', isAuthenticated, async (req, res, next) => {
 
 //MARKET
 router.get('/market', isAuthenticated, async (req, res, next) => {
-    res.redirect("/501")
+    res.render("market")
+})
+
+router.get('/market/discounts', isAuthenticated, async (req, res, next) => {
+    productsModel.find({isDiscounted: true}).sort({price: -1}).exec((err, products) => {
+        if (err) {
+            res.send('ERROR AL CARGAR LOS PRODUCTOS')
+        } else {
+            res.render('discounts', {
+                products: products,
+            })
+        }
+    })
+})
+
+router.get('/market/mypurchases', isAuthenticated, async (req, res, next) => {
+    res.render("myPurchases")
+})
+
+router.get('/market/sales', isAuthenticated, async (req, res, next) => {
+    res.render("sales")
 })
 
 //AUTH
@@ -423,6 +444,76 @@ router.get('/admin', isAuthenticated, isAdmin, (req, res, next) => {
             })
         }
     })
+})
+
+router.get('/admin/market', isAuthenticated, isAdmin, (req, res, next) => {
+    productsModel.find().sort({title: 1}).exec((err, products) => {
+        if (err) {
+            res.send('ERROR AL CARGAR LOS PRODUCTOS')
+        } else {
+            res.render('admin-market', {
+                products: products,
+            })
+        }
+    })
+})
+
+router.post('/admin/market', isAuthenticated, isAdmin, async (req, res, next) => {
+    try {
+        const newProduct = {
+            title: req.body.title,
+            description: req.body.description,
+            price: req.body.price,
+            deliveryPrice: 0,
+            thumbnail: req.body.thumbnail,
+            seller: "Novourne"
+        }
+
+        await productsModel.create(newProduct)
+        logger.info('Producto '+newProduct.title+' creado exitosamente.')
+        res.redirect('/admin/market')
+    } catch (err) {
+        logger.error(err)
+    }
+})
+
+router.get('/admin/market/:id', isAuthenticated, isAdmin, async (req, res, next) => {
+    try {
+        const product = await productsModel.findById(req.params.id)
+        res.render('admin-product', {
+            product: product
+        })
+    } catch (err) {
+        logger.error(err)
+    }
+})
+
+router.post('/admin/market/:id', isAuthenticated, isAdmin, async (req, res, next) => {
+    try {
+        const newProduct = {
+            title: req.body.title,
+            description: req.body.description,
+            price: req.body.price,
+            deliveryPrice: req.body.deliveryPrice,
+            thumbnail: req.body.thumbnail,
+            categories: req.body.categories,
+            seller: req.body.seller
+        }
+
+        await productsModel.findOneAndUpdate({ _id: req.params.id }, {
+            title: req.body.title,
+            description: req.body.description,
+            price: req.body.price,
+            deliveryPrice: req.body.deliveryPrice,
+            thumbnail: req.body.thumbnail,
+            categories: req.body.categories,
+            seller: req.body.seller
+        }, { upsert: true }).exec()
+        logger.info('Producto '+newProduct.title+' editado exitosamente.')
+        res.redirect('/admin/market/'+req.params.id)
+    } catch (err) {
+        logger.error(err)
+    }
 })
 
 router.get('/admin/create', isAuthenticated, isAdmin, (req, res, next) => {
