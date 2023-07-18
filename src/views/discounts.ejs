@@ -5,93 +5,60 @@
 
 <div>
     <div class="d-flex m-5 pb-5 px-5">
-        <% if(products.length<4) { %>
-        <% products.forEach(e => { %>
-            <div class="col w-100 d-flex justify-content-center">
-                <div class="plastico7 d-flex flex-column h-100 align-items-center p-2 sombra">
-                    <div class="mt-5">
-                        <div class="productCont">
-                            <img src=<%= e.thumbnail  %> alt="producto" class="productimg">
-                        </div>
-                    </div>
-                    <div class="w-100 px-4">
-                        <div class="align-self-start">
-                            <h4 class="mt-4"><%= e.title %></h4>
-                            <% if(e.isDiscounted) { %>
-                                <div>
-                                    <span class="mb-2 badge bg-warning text-dark">EN OFERTA</span>
+        <div class="d-flex w-100 flex-wrap justify-content-center">
+            <% if(products.length>0) { %> 
+                <% products.forEach(e => { %>
+                    <div class="prodsCont m-3">
+                        <div class="plastico7 d-flex flex-column h-100 align-items-center w-100">
+                            <div class="mt-5">
+                                <div class="productCont">
+                                    <img src=<%= e.thumbnail  %> alt="producto" class="productimg">
                                 </div>
-                            <% } %>
-                            <div>
-                                <%= e.description %>
                             </div>
-                            <div class="d-flex flex-column align-items-end">
-                                <div class="d-flex flex-column align-items-end mb-3">
-                                    <span class="fs-1"><%= e.price %>.00 NVP</span>
-                                    <% if(e.deliveryPrice==0) { %>
-                                        <span class="text-warning">ENVIO GRATIS</span>
-                                    <% } else { %>
-                                        <span class="text-secondary">+ <%= e.deliveryPrice %>.00 NVP de envio</span>
+                            <div class="w-100 px-4">
+                                <div class="align-self-start">
+                                    <h4 class="mt-4"><%= e.title %></h4>
+                                    <% if(e.isDiscounted) { %>
+                                        <div>
+                                            <span class="mb-2 badge bg-warning text-dark">EN OFERTA</span>
+                                        </div>
                                     <% } %>
-                                </div>
-                            </div>
-                            <div class="mb-2 d-flex justify-content-center">
-                                <p><%= e.seller %></p>
-                                <% if(e.seller=='Novourne') { %>
-                                    <img src="../../assets/verified.png" alt="verificado" width="20" height="20">
-                                <% } %>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <% }) %>
-        <% } else { %>
-            <div class="d-flex w-100 flex-wrap justify-content-center">
-            <% products.forEach(e => { %>
-                <div class="prodsCont m-3">
-                    <div class="plastico7 d-flex flex-column h-100 align-items-center w-100">
-                        <div class="mt-5">
-                            <div class="productCont">
-                                <img src=<%= e.thumbnail  %> alt="producto" class="productimg">
-                            </div>
-                        </div>
-                        <div class="w-100 px-4">
-                            <div class="align-self-start">
-                                <h4 class="mt-4"><%= e.title %></h4>
-                                <% if(e.isDiscounted) { %>
-                                    <div>
-                                        <span class="mb-2 badge bg-warning text-dark">EN OFERTA</span>
+                                    <div class="descCont">
+                                        <%= e.description %>
                                     </div>
-                                <% } %>
-                                <div class="descCont">
-                                    <%= e.description %>
-                                </div>
-                                <div class="d-flex flex-column align-items-end">
-                                    <div class="d-flex flex-column align-items-end mb-3">
-                                        <span class="fs-1"><%= e.price %>.00 NVP</span>
-                                        <% if(e.deliveryPrice==0) { %>
-                                            <span class="text-warning">ENVIO GRATIS</span>
-                                        <% } else { %>
-                                            <span class="text-secondary">+ <%= e.deliveryPrice %>.00 NVP de envio</span>
+                                    <div class="d-flex flex-column align-items-end">
+                                        <div class="d-flex flex-column align-items-end mb-3">
+                                            <span class="fs-1"><%= e.price %>.00 NVP</span>
+                                            <% if(e.deliveryPrice==0) { %>
+                                                <span class="text-warning">ENVIO GRATIS</span>
+                                            <% } else { %>
+                                                <span class="text-secondary">+ <%= e.deliveryPrice %>.00 NVP de envio</span>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-center">
+                                        <p><%= e.seller %></p>
+                                        <% if(e.seller=='Novourne') { %>
+                                            <img src="../../assets/verified.png" alt="verificado" width="20" height="20">
                                         <% } %>
                                     </div>
-                                </div>
-                                <div class="d-flex justify-content-center">
-                                    <p><%= e.seller %></p>
-                                    <% if(e.seller=='Novourne') { %>
-                                        <img src="../../assets/verified.png" alt="verificado" width="20" height="20">
-                                    <% } %>
-                                </div>
-                                <div class="w-100 p-2 text-center">
-                                    <a href="#" class="btn btn-outline-success w-75 m-2 rounded">Comprar</a>
+                                    <div class="w-100 p-2 text-center">
+                                        <a href="#" class="btn btn-outline-success w-75 m-2 rounded">Comprar</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                <% }) %>
+            <% } else { %>
+                <div>
+                    <div class="d-flex flex-column align-items-center m-5">
+                        <img src="../assets/triste.png" alt="triste" width="200">
+                        <h4 class="text-center text-white popp mt-3">Aqui no hay nada</h4>
+                    </div>
+                    <p class="text-white popp text-center">Espera nuevas ofertas proximamente.</p>
                 </div>
-            <% }) %>
-            </div>
-        <% } %>
+            <% } %>
+        </div>
     </div>
 </div>

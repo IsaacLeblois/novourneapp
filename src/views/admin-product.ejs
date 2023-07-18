@@ -95,19 +95,39 @@
                           <input class="form-control rounded" type="text" name="seller" placeholder="Vendedor" value=<%= product.seller %> required>
                       </div>
 
-                      <select class="form-select rounded" aria-label="Default select example" name="categories" multiple>
-                        <option value="Pociones">Pociones</option>
-                        <option value="Hogar">Hogar</option>
-                        <option value="Armas">Armas</option>
-                        <option value="Armaduras">Armaduras</option>
-                        <option value="Bloques">Bloques</option>
-                        <option value="Animales">Animales</option>
-                        <option value="Comida">Comida</option>
-                        <option value="Niños">Niños</option>
-                        <option value="Servicios">Servicios</option>
-                        <option value="Semillas">Semillas</option>
-                        <option value="Inmuebles">Inmuebles</option>
-                      </select>
+                      <div class="d-flex">
+                        <div class="col">
+                            <select class="form-select rounded h-100" aria-label="Default select example" name="categories" multiple>
+                              <option value="Pociones">Pociones</option>
+                              <option value="Hogar">Hogar</option>
+                              <option value="Armas">Armas</option>
+                              <option value="Armaduras">Armaduras</option>
+                              <option value="Bloques">Bloques</option>
+                              <option value="Animales">Animales</option>
+                              <option value="Comida">Comida</option>
+                              <option value="Niños">Niños</option>
+                              <option value="Servicios">Servicios</option>
+                              <option value="Semillas">Semillas</option>
+                              <option value="Inmuebles">Inmuebles</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <h6 class="text-white mx-3">Aparecerá en:</h6>
+                            <div class="d-flex flex-column">
+                                <% product.categories.forEach(e => { %>
+                                    <span class="text-white mx-3"><%= e %></span>
+                                <% }) %>
+                                <% if(product.isDiscounted) { %>
+                                    <span class="text-white mx-3">Ofertas</span>
+                                <% } %>
+                            </div>
+                        </div>
+                      </div>
+
+                      <div class="form-check form-switch my-4">
+                        <input class="form-check-input rounded" type="checkbox" role="switch" name="isDiscounted">
+                        <label class="form-check-label text-white" for="isDiscounted">Producto en oferta</label>
+                      </div>
     
                     <div class="row mt-4">
                         <div class="col">

@@ -231,8 +231,8 @@
     display: flex;
 }
 
-.productImg {
-    object-fit:cover;
+.productimg {
+    object-fit:scale-down;
     width: 100%;
     height: 100%;
 }

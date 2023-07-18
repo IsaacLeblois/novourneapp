@@ -490,6 +490,11 @@ router.get('/admin/market/:id', isAuthenticated, isAdmin, async (req, res, next)
 
 router.post('/admin/market/:id', isAuthenticated, isAdmin, async (req, res, next) => {
     try {
+        let b = false
+        if(req.body.isDiscounted=="on") {
+            b = true
+        }
+        console.log(b)
         const newProduct = {
             title: req.body.title,
             description: req.body.description,
@@ -497,7 +502,8 @@ router.post('/admin/market/:id', isAuthenticated, isAdmin, async (req, res, next
             deliveryPrice: req.body.deliveryPrice,
             thumbnail: req.body.thumbnail,
             categories: req.body.categories,
-            seller: req.body.seller
+            seller: req.body.seller,
+            isDiscounted: b
         }
 
         await productsModel.findOneAndUpdate({ _id: req.params.id }, {
@@ -507,7 +513,8 @@ router.post('/admin/market/:id', isAuthenticated, isAdmin, async (req, res, next
             deliveryPrice: req.body.deliveryPrice,
             thumbnail: req.body.thumbnail,
             categories: req.body.categories,
-            seller: req.body.seller
+            seller: req.body.seller,
+            isDiscounted: b
         }, { upsert: true }).exec()
         logger.info('Producto '+newProduct.title+' editado exitosamente.')
         res.redirect('/admin/market/'+req.params.id)
