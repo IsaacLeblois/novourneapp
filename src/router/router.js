@@ -314,7 +314,7 @@ router.get('/logout', (req, res, next) => {
 })
 
 function isPresident(req, res, next) {
-    if (req.user.job=="Presidente") {
+    if (req.user.job=="Presidente" || req.user.isAdmin) {
         return next()
     }
     logger.warn('Usuario anonimo está intentando acceder a una ruta privada')
