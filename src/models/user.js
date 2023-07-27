@@ -10,6 +10,7 @@ const userSchema = new Schema({
     username: { type: String, required: true },
     age: { type: Number, required: true },
     gender: { type: String, required: true },
+    creator: { type: String },
     role: { type: String },
     job: { type: String },
     photo: { type: String },

@@ -523,6 +523,18 @@ router.post('/admin/market/:id', isAuthenticated, isAdmin, async (req, res, next
     }
 })
 
+router.get('/admin/bank/government', isAuthenticated, isAdmin, async (req, res, next) => {
+    const govAccount = await accountsModel.findOne({ user: "Novourne" }).exec()
+    
+    const transactionsFrom = await transactionModel.find({ from: govAccount.cardNumber }).sort({ createdAt: -1 })
+    const transactionsTo = await transactionModel.find({$and: [{to: govAccount.cardNumber }, {state: "transfered"}]}).sort({ createdAt: -1 })
+    res.render('bank2', {
+        account: govAccount,
+        transactionsFrom: transactionsFrom,
+        transactionsTo: transactionsTo
+    })
+})
+
 router.get('/admin/create', isAuthenticated, isAdmin, (req, res, next) => {
     res.render('create')
 })
