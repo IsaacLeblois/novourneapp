@@ -12,7 +12,6 @@ const accountsModel = require('../models/accounts')
 const transactionModel = require('../models/transaction')
 const productsModel = require('../models/product')
 const user = require('../models/user')
-const transaction = require('../models/transaction')
 
 //INDEX
 router.get('/', (req, res, next) => {
@@ -314,6 +313,14 @@ router.get('/logout', (req, res, next) => {
     })
 })
 
+function isPresident(req, res, next) {
+    if (req.user.job=="Presidente") {
+        return next()
+    }
+    logger.warn('Usuario anonimo está intentando acceder a una ruta privada')
+    res.redirect('/')
+}
+
 function isAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next()
@@ -523,8 +530,8 @@ router.post('/admin/market/:id', isAuthenticated, isAdmin, async (req, res, next
     }
 })
 
-router.get('/admin/bank/government', isAuthenticated, isAdmin, async (req, res, next) => {
-    const govAccount = await accountsModel.findOne({ user: "Novourne" }).exec()
+router.get('/admin/bank/server', isAuthenticated, isAdmin, async (req, res, next) => {
+    const govAccount = await accountsModel.findOne({ user: "Server" }).exec()
     
     const transactionsFrom = await transactionModel.find({ from: govAccount.cardNumber }).sort({ createdAt: -1 })
     const transactionsTo = await transactionModel.find({$and: [{to: govAccount.cardNumber }, {state: "transfered"}]}).sort({ createdAt: -1 })
@@ -596,6 +603,19 @@ router.post('/news/:id', isAuthenticated, async (req, res, next) => {
     } catch (err) {
 
     }
+})
+
+//GOVERNMENT
+router.get('/government/bank', isAuthenticated, isPresident, async (req, res, next) => {
+    const govAccount = await accountsModel.findOne({ user: "Novourne" }).exec()
+    
+    const transactionsFrom = await transactionModel.find({ from: govAccount.cardNumber }).sort({ createdAt: -1 })
+    const transactionsTo = await transactionModel.find({$and: [{to: govAccount.cardNumber }, {state: "transfered"}]}).sort({ createdAt: -1 })
+    res.render('bank2', {
+        account: govAccount,
+        transactionsFrom: transactionsFrom,
+        transactionsTo: transactionsTo
+    })
 })
 
 module.exports = router
