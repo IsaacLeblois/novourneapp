@@ -30,6 +30,10 @@ router.get('/news', (req, res, next) => {
     })
 })
 
+router.get('/downloads', (req, res, next) => {
+    res.render('downloads')
+})
+
 router.get('/discord', (req, res, next) => {
     res.render('discord')
 })
@@ -258,6 +262,42 @@ router.post('/bank/transfer', isAuthenticated, async (req, res, next) => {
     } catch (err) {
         logger.error(err)
     }
+})
+
+router.get('/bank/server', isAuthenticated, isAdmin, async (req, res, next) => {
+    const govAccount = await accountsModel.findOne({ user: "Server" }).exec()
+    
+    const transactionsFrom = await transactionModel.find({ from: govAccount.cardNumber }).sort({ createdAt: -1 })
+    const transactionsTo = await transactionModel.find({$and: [{to: govAccount.cardNumber }, {state: "transfered"}]}).sort({ createdAt: -1 })
+    res.render('bank2', {
+        account: govAccount,
+        transactionsFrom: transactionsFrom,
+        transactionsTo: transactionsTo
+    })
+})
+
+router.get('/bank/government', isAuthenticated, isPresident, async (req, res, next) => {
+    const govAccount = await accountsModel.findOne({ user: "Novourne" }).exec()
+    
+    const transactionsFrom = await transactionModel.find({ from: govAccount.cardNumber }).sort({ createdAt: -1 })
+    const transactionsTo = await transactionModel.find({$and: [{to: govAccount.cardNumber }, {state: "transfered"}]}).sort({ createdAt: -1 })
+    res.render('bank2', {
+        account: govAccount,
+        transactionsFrom: transactionsFrom,
+        transactionsTo: transactionsTo
+    })
+})
+
+router.get('/bank/master', isAuthenticated, isPresident, async (req, res, next) => {
+    const masterAccount = await accountsModel.findOne({ user: "Banco" }).exec()
+    
+    const transactionsFrom = await transactionModel.find({ from: masterAccount.cardNumber }).sort({ createdAt: -1 })
+    const transactionsTo = await transactionModel.find({$and: [{to: masterAccount.cardNumber }, {state: "transfered"}]}).sort({ createdAt: -1 })
+    res.render('bank2', {
+        account: masterAccount,
+        transactionsFrom: transactionsFrom,
+        transactionsTo: transactionsTo
+    })
 })
 
 //MARKET
@@ -530,18 +570,6 @@ router.post('/admin/market/:id', isAuthenticated, isAdmin, async (req, res, next
     }
 })
 
-router.get('/admin/bank/server', isAuthenticated, isAdmin, async (req, res, next) => {
-    const govAccount = await accountsModel.findOne({ user: "Server" }).exec()
-    
-    const transactionsFrom = await transactionModel.find({ from: govAccount.cardNumber }).sort({ createdAt: -1 })
-    const transactionsTo = await transactionModel.find({$and: [{to: govAccount.cardNumber }, {state: "transfered"}]}).sort({ createdAt: -1 })
-    res.render('bank2', {
-        account: govAccount,
-        transactionsFrom: transactionsFrom,
-        transactionsTo: transactionsTo
-    })
-})
-
 router.get('/admin/create', isAuthenticated, isAdmin, (req, res, next) => {
     res.render('create')
 })
@@ -554,6 +582,10 @@ router.post('/admin/create', isAuthenticated, isAdmin, async (req, res, next) =>
         newsModel.create(newNotice)
         res.send('Noticia agregada exitosamente')
     }
+})
+
+router.get('/admin/stats', isAuthenticated, isAdmin, async (req, res, next) => {
+    res.render('stats')
 })
 
 router.get('/501', (req, res, next) => {
@@ -606,16 +638,5 @@ router.post('/news/:id', isAuthenticated, async (req, res, next) => {
 })
 
 //GOVERNMENT
-router.get('/government/bank', isAuthenticated, isPresident, async (req, res, next) => {
-    const govAccount = await accountsModel.findOne({ user: "Novourne" }).exec()
-    
-    const transactionsFrom = await transactionModel.find({ from: govAccount.cardNumber }).sort({ createdAt: -1 })
-    const transactionsTo = await transactionModel.find({$and: [{to: govAccount.cardNumber }, {state: "transfered"}]}).sort({ createdAt: -1 })
-    res.render('bank2', {
-        account: govAccount,
-        transactionsFrom: transactionsFrom,
-        transactionsTo: transactionsTo
-    })
-})
 
 module.exports = router

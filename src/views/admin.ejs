@@ -1,23 +1,27 @@
-<%- layout('./layouts/main.ejs') %> 
-<h1 class="text-center m-5">ADMIN MODE</h1>
+<%- layout('./layouts/main.ejs') %>
+  <h1 class="text-center m-5">ADMIN MODE</h1>
 
-<div class="d-flex">
-  <div class="col border">
-    <h3 class="text-center mt-4">Mercado</h3>
-    <div class="d-flex flex-column align-items-center justify-content-center mt-4">
-      <p>Administrador de Mercado</p>
-      <a href="/admin/market" class="btn btn-dark w-50 rounded">Mercado</a>
+  <div class="d-flex">
+    <div class="col border">
+      <h3 class="text-center mt-4">Mercado</h3>
+      <div class="d-flex flex-column align-items-center justify-content-center mt-4">
+        <p>Administrador de Mercado</p>
+        <a href="/admin/market" class="btn btn-dark w-50 rounded">Mercado</a>
+      </div>
+    </div>
+    <div class="col border">
+      <h3 class="text-center mt-4">Economia</h3>
+      <div class="d-flex flex-column align-items-center justify-content-center mt-4">
+        <a href="/bank/server" class="btn btn-dark w-50 rounded">Cuenta del servidor</a>
+      </div>
+      <div class="d-flex flex-column align-items-center justify-content-center mt-4">
+        <a href="/bank/government" class="btn btn-dark w-50 rounded">Cuenta del gobierno</a>
+      </div>
+      <div class="d-flex flex-column align-items-center justify-content-center mt-4">
+        <a href="/bank/master" class="btn btn-dark w-50 rounded">Cuenta del banco</a>
+      </div>
+      <div class="d-flex flex-column align-items-center justify-content-center mt-4">
+        <a href="/admin/stats" class="btn btn-dark w-50 rounded">Estadisticas</a>
+      </div>
     </div>
   </div>
-  <div class="col border">
-    <h3 class="text-center mt-4">Economia</h3>
-    <div class="d-flex flex-column align-items-center justify-content-center mt-4">
-      <p>Cuenta del servidor</p>
-      <a href="/admin/bank/server" class="btn btn-dark w-50 rounded">Banco</a>
-    </div>
-    <div class="d-flex flex-column align-items-center justify-content-center mt-4">
-      <p>Cuenta del gobierno</p>
-      <a href="/government/bank" class="btn btn-dark w-50 rounded">Banco</a>
-  </div>
-  </div>
-</div>

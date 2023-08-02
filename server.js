@@ -7,6 +7,7 @@ const flash = require('connect-flash')
 const log4js = require('log4js')
 const engine = require('ejs-mate')
 const bodyParser = require('body-parser')
+const charts = require('chart.js')
 const { Server: HttpServer } = require('http')
 
 //INITIALIZATIONS
