@@ -1,28 +1,40 @@
-<div class="rainbow-box"></div>
+<div class="background-box"></div>
 <%- layout('./layouts/main.ejs') %> 
-<% if(user) { %>
-    <h1 class="text-center mt-5 text-white popp">¡Hola <%= user.name %> <%= user.lastname %>!</h1>
-<% } else { %> 
-    <h1 class="text-center mt-5 text-white popp">¡Bienvenido!</h1>
-<% } %> 
 
-<div class="m-5 d-flex gap-3 justify-content-center">
-    <% if(news.length > 0) { %>
-        <% news.forEach(e => { %>
-            <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
-                <div class="card-header"></div>
-                <img src=<%= e.thumbnail %>  alt="imagen">
-                <div class="card-body text-center">
-                    <h4 class="card-title"><%= e.title %></h4>
-                    <p class="card-text"><%= e.author %> </p>
-                    <a class="btn btn-secondary" href=/news/<%= e.id %>>Ver detalles</a>
-                </div>
+<div class="animate__animated animate__slideInLeft">
+    <div class="bg-danger d-flex align-items-center">
+        <span class="text-white popp mx-5 fs-1">Canal 13</span>
+        <a href="/news" class="text-white btn btn-danger">Ultima Hora</a>
+        <a href="#" class="text-white btn btn-danger">Gobierno</a>
+        <a href="#" class="text-white btn btn-danger">Economia</a>
+        <a href="#" class="text-white btn btn-danger">Entretenimiento</a>
+    </div>
+    <div class="d-flex">
+        <div class="col-4">
+            <div class="breakingCont">
+                <img class="breakingImg" src="https://cdn.discordapp.com/attachments/1105574494996807683/1133967768803360819/Screenshot_20230726_212921.jpg">
             </div>
-        <% }) %> 
-    <% } else { %> 
-        <div class="d-flex flex-column align-items-center m-5">
-            <img src="assets/triste.png" alt="triste" width="200">
-            <h4 class="text-center text-white popp mt-3">Aún no hay nada</h4>
         </div>
-    <% } %> 
+        <div class="col-8 bg-light">
+            <div>
+                <p class="text-break fs-1 p-5 text-center popp text-uppercase">"Novourne, cuna de tradiciones, cimientos de progreso y hogar de una comunidad que día a día construye su futuro con pasión y esfuerzo."</p>
+                <p class="text-break text-center popp">Por: Zuzu Reebuch</p>
+                <p class="popp text-center">3/8/2023</p>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex">
+        <% news.forEach(e => { %>
+            <a href="/news/<%= e.id %>" class="col bg-light h-100 noOver">
+                <div class="newsCont">
+                    <img src=<%= e.thumbnail %> alt="Noticia" class="newsImg">
+                </div>
+                <div class="noOver p-5">
+                    <p class="text-break text-center text-uppercase fs-4"><%= e.title %></p>
+                    <p class="text-break text-center text-uppercase"><%= e.author %></p>
+                    <p class="text-break text-center text-uppercase"><%= e.createdAt.getDate() %>/<%= e.createdAt.getMonth()+1 %>/<%= e.createdAt.getFullYear() %></p>
+                </div>
+            </a>
+        <% }) %>
+    </div>
 </div>

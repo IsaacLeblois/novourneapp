@@ -18,24 +18,54 @@ router.get('/', (req, res, next) => {
     res.render('index')
 })
 
-router.get('/news', (req, res, next) => {
-    newsModel.find().exec((err, news) => {
-        if (err) {
-            res.send('ERROR AL CARGAR LOS PRODUCTOS')
-        } else {
-            res.render('news', {
-                news: news,
-            })
-        }
-    })
-})
-
 router.get('/downloads', (req, res, next) => {
     res.render('downloads')
 })
 
 router.get('/discord', (req, res, next) => {
     res.render('discord')
+})
+
+//FUNCTIONS
+function isAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next()
+    }
+    logger.warn('Usuario anonimo está intentando acceder a una ruta privada')
+    res.redirect('/')
+}
+
+function isAdmin(req, res, next) {
+    if (req.user.isAdmin) {
+        return next()
+    } else {
+        logger.warn('Usuario ' + req.user.name + ' está intentando acceder a una ruta de administrador')
+        res.redirect('/')
+    }
+}
+
+function isPresident(req, res, next) {
+    if (req.user.job=="Presidente" || req.user.isAdmin) {
+        return next()
+    }
+    logger.warn('Usuario anonimo está intentando acceder a una ruta presidencial')
+    res.redirect('/')
+}
+
+function isNewshound(req, res, next) {
+    if (req.user.job=="Reportero" || req.user.isAdmin) {
+        return next()
+    }
+    logger.warn('Usuario anonimo está intentando acceder a una ruta de prensa')
+    res.redirect('/')
+}
+
+//NEWS
+router.get('/news', isAuthenticated, async (req, res, next) => {
+    const news = await newsModel.find().sort({ createdAt: -1 }).limit(4)
+    res.render('news', {
+        news: news
+    })
 })
 
 //SOCIAL
@@ -48,7 +78,7 @@ router.get('/social', isAuthenticated, async (req, res, next) => {
                 if(err2) {
                     res.render('social', {
                         users: users
-                    })                } else {
+                    })} else {
                     res.render('social', {
                         users: users,
                         posts: posts
@@ -353,31 +383,6 @@ router.get('/logout', (req, res, next) => {
     })
 })
 
-function isPresident(req, res, next) {
-    if (req.user.job=="Presidente" || req.user.isAdmin) {
-        return next()
-    }
-    logger.warn('Usuario anonimo está intentando acceder a una ruta privada')
-    res.redirect('/')
-}
-
-function isAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next()
-    }
-    logger.warn('Usuario anonimo está intentando acceder a una ruta privada')
-    res.redirect('/')
-}
-
-function isAdmin(req, res, next) {
-    if (req.user.isAdmin) {
-        return next()
-    } else {
-        logger.warn('Usuario ' + req.user.name + ' está intentando acceder a una ruta de administrador')
-        res.redirect('/')
-    }
-}
-
 //USER
 router.get('/profile', isAuthenticated, (req, res, next) => {
     res.render('profile')
@@ -570,17 +575,17 @@ router.post('/admin/market/:id', isAuthenticated, isAdmin, async (req, res, next
     }
 })
 
-router.get('/admin/create', isAuthenticated, isAdmin, (req, res, next) => {
+router.get('/admin/create', isAuthenticated, isNewshound, (req, res, next) => {
     res.render('create')
 })
 
-router.post('/admin/create', isAuthenticated, isAdmin, async (req, res, next) => {
+router.post('/admin/create', isAuthenticated, isNewshound, async (req, res, next) => {
     if (!req.body.title || !req.body.author || !req.body.textbody || !req.body.thumbnail) {
         res.send('Debes ingresar todos los campos.')
     } else {
         const newNotice = req.body
         newsModel.create(newNotice)
-        res.send('Noticia agregada exitosamente')
+        res.redirect('/news')
     }
 })
 
@@ -601,10 +606,12 @@ router.get('/:ruta', (req, res, next) => {
 })
 
 //NEWS
-router.get('/news/:id', async (req, res, next) => {
+router.get('/news/:id', isAuthenticated, async (req, res, next) => {
     try {
         const notice = await newsModel.findById(req.params.id).exec()
-        res.render('notice', { notice })
+        res.render('notice', {
+            notice: notice
+        })
     } catch (err) {
         res.redirect('/404')
     }

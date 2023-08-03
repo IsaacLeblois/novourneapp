@@ -210,6 +210,32 @@
     height: 100%;
 }
 
+.breakingCont {
+    width: 100%;
+    height: 100%;
+}
+
+.breakingImg {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.newsCont {
+    width: 100%;
+    height: 200px;
+}
+
+.noOver {
+    overflow: hidden;
+}
+
+.newsImg {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
 .catBox:hover {
     background-color: #1b86ee;
     transition-duration: 0.3s;
@@ -240,4 +266,9 @@
 .admint {
     min-width: 200px;
     text-align: center;
+}
+
+.bordeRojo {
+    border: red 4px solid;
+    border-radius: 10px;
 }

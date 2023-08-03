@@ -1,3 +1,21 @@
-<%- layout('./layouts/main.ejs') %> 
-<h1 class="text-center mt-1"><%= notice.title %></h1>
-<img src=<%= notice.thumbnail %> alt="imagen" width=200>
+<%- layout('./layouts/2main.ejs') %> 
+
+<div class="m-5 bordeRojo">
+    <div class="d-flex align-items-center p-5 mx-5">
+        <div class="col-4">
+            <div class="breakingCont">
+                <img class="breakingImg" src=<%= notice.thumbnail %>>
+            </div>
+        </div>
+        <div class="col-8">
+            <div>
+                <p class="text-break fs-1 p-5 text-center popp text-uppercase"><%= notice.title %></p>
+                <p class="text-break text-center popp">Por: <%= notice.author %></p>
+                <p class="popp text-center"><%= notice.createdAt.getDate() %>/<%= notice.createdAt.getMonth()+1 %>/<%= notice.createdAt.getFullYear() %></p>
+            </div>
+        </div>
+    </div>
+    <div class="p-5">
+        <p class="text-break fs-2 popp px-5"><%= notice.textbody %></p>
+    </div>
+</div>
