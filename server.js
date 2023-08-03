@@ -8,6 +8,7 @@ const log4js = require('log4js')
 const engine = require('ejs-mate')
 const bodyParser = require('body-parser')
 const charts = require('chart.js')
+var favicon = require('serve-favicon');
 const { Server: HttpServer } = require('http')
 
 //INITIALIZATIONS
@@ -45,6 +46,7 @@ app.use(session({
 app.use(flash())
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(favicon('./public/assets/favicon.ico'));
 
 app.use((req, res, next) => {
     app.locals.signupMessage = req.flash('signupMessage')
