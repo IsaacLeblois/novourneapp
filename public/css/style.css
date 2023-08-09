@@ -272,3 +272,7 @@
     border: red 4px solid;
     border-radius: 10px;
 }
+
+pre {
+    white-space: pre-wrap;
+}

@@ -23,9 +23,9 @@
             </div>
         </div>
     </div>
-    <div class="d-flex">
+    <div class="d-flex bg-light h-100">
         <% news.forEach(e => { %>
-            <a href="/news/<%= e.id %>" class="col bg-light h-100 noOver">
+            <a href="/news/<%= e.id %>" class="col h-100 noOver">
                 <div class="newsCont">
                     <img src=<%= e.thumbnail %> alt="Noticia" class="newsImg">
                 </div>
