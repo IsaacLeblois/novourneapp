@@ -5,17 +5,17 @@
 
 <div class="m-5 d-flex justify-content-center">
     <div class="col d-flex flex-column align-items-center">
-        <div class="plastico bg-info d-flex flex-column justify-content-around p-4 sombra">
+        <div class="plastico bg-danger d-flex flex-column justify-content-around p-4 sombra">
             <div class="align-self-end">
-                <h5 class="popp text-white sombrat">Banco de Novourne</h5>
+                <h5 class="popp text-white sombrat">Banco de Neoland</h5>
             </div>
             <div class="align-self-center">
-                <p><%= account.cardNumber %></p>
+                <p class="fw-bold"><%= account.cardNumber %></p>
             </div>
             <div class="d-flex justify-content-between">
                 <h5 class="popp text-white sombrat"><%= user.name %> <%= user.lastname %></h5>
                 <div>
-                    <p>CVV <%= account.CVV %></p>
+                    <p class="fw-bold">CVV <%= account.CVV %></p>
                 </div>
             </div>
         </div>
@@ -26,16 +26,16 @@
         <% } else { %>
             <h2 class="text-white popp">Bienvenido Sr. <%= user.lastname %></h2>
         <% } %>
-        <h4 class="text-white popp">Su cuenta tiene <%= account.balance %>.00 NVP.</h4>
+        <h4 class="text-white popp">Su cuenta tiene <%= account.balance %>.00 Cr.</h4>
         <% if(user.isVerified) { %>
             <div class="row w-75">
                 <button class="col btn btn-light rounded m-4" disabled>Pedir prestamo</button>
-                <button class="col btn btn-info rounded m-4" data-toggle="modal" data-target=".transferModal">Transferir dinero</button>
+                <button class="col btn btn-danger rounded m-4" data-toggle="modal" data-target=".transferModal">Transferir dinero</button>
             </div>
             <% } else { %>
             <div class="row w-75">
                 <button class="col btn btn-light rounded m-4" disabled>Pedir prestamo</button>
-                <button class="col btn btn-info rounded m-4" data-toggle="modal" data-target=".transferModal" disabled>Transferir dinero</button>
+                <button class="col btn btn-danger rounded m-4" data-toggle="modal" data-target=".transferModal" disabled>Transferir dinero</button>
             </div>
             <p class="text-center popp my-1 text-white">Aún no eres usuario verificado.</p>
             <% } %>
@@ -77,7 +77,7 @@
                                     <div class="d-flex align-items-center w-75">
                                         <div class="bg-success thicon rounded"></div>
                                         <div class="mx-3 text-white">
-                                            Recibido <%= e.quantity %>.00 NVP de <%= e.from %>
+                                            Recibido <%= e.quantity %>.00 Cr. de <%= e.from %>
                                         </div>
                                     </div>
                                     <div class="popp text-white">
@@ -96,7 +96,7 @@
                                         <div class="d-flex align-items-center w-75">
                                             <div class="bg-success thicon rounded"></div>
                                             <div class="mx-3 text-white">
-                                                Enviado <%= e.quantity %>.00 NVP a <%= e.to %>
+                                                Enviado <%= e.quantity %>.00 Cr. a <%= e.to %>
                                             </div>
                                         </div>
                                         <div class="popp text-white">
@@ -188,7 +188,7 @@
                           <button class="btn btn-primary w-100 rounded" data-dismiss="modal">Volver</button>
                       </div>
                       <div class="col">
-                          <button class="btn btn-info w-100 rounded" type="submit">Transferir</button>
+                          <button class="btn btn-danger w-100 rounded" type="submit">Transferir</button>
                       </div>
                   </div>
   

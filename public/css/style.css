@@ -77,6 +77,15 @@
     );
 }
 
+.neoland-box-bg {
+    position: fixed;
+    top: -100px;
+    z-index: -100;
+    width: 100%;
+    height: 2000px;
+    background-color: #142124;
+}
+
 .popp {
     font-family: 'Poppins', sans-serif;
 }
