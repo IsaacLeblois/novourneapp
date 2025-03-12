@@ -1,18 +1,28 @@
 <div class="neoland-box-bg"></div>
-<%- layout('./layouts/main.ejs') %> 
+<%- layout('./layouts/main.ejs') %>
+
 <% if(user) { %>
     <h1 class="text-center mt-5 mx-5 text-white popp sombrat">¡Hola!</h1>
     <h2 class="text-center mb-5 mx-5 text-white popp sombrat"><%= user.name %> <%= user.lastname %></h2>
 <% } else { %> 
-    <h1 class="text-center mt-5 mx-5 text-white popp">¡Bienvenido a Neoland!</h1>
-    <h2 class="text-center mb-5 mx-5 text-white popp">Sumérgete en un emocionante mundo virtual</h2>
+    <h1 class="text-center mt-5 mx-5 text-white popp">¡Bienvenido a Fallen Kingdom!</h1>
+    <h2 class="text-center mb-5 mx-5 text-white popp">¡El destino del reino está en tus manos!</h2>
 <% } %> 
-<div class="d-flex p-5">
+
+<div class="d-flex p-3">
     <div class="col text-white mx-5 p-5 fs-3">
-        <h5 class="text-white">¡Adéntrate en el vibrante mundo de Neoland!</h5>
-        <p class="popp">Embárcate en una odisea llena de desafíos estratégicos, control territorial, y descubre una economía dinámica que te permite forjar tu propio destino. Únete a la comunidad, forma alianzas, participa en misiones épicas y esculpe tu leyenda en este universo digital único. ¡Bienvenido a Neoland, donde tus aventuras digitales cobran vida!</p>
+        <h5 class="text-white mb-3">¡Sumérgete en el mundo de Fallen Kingdom!</h5>
+        <p class="popp">Explora un reino al borde del colapso, donde solo los más valientes podrán restaurar su antigua gloria. En este mundo lleno de secretos, guerra y poder, podrás:</p>
+        <ul class="popp">
+            <li><strong>Descubrir tesoros ocultos</strong> que cambiarán el rumbo de la historia.</li>
+            <li><strong>Forjar tu propia leyenda</strong> y escribir tu nombre en los anales de la historia.</li>
+        </ul>
     </div>
     <div class="col text-center mx-5">
-        <img src="assets/neoland.png" alt="logo">
+        <img src="assets/neoland.png" alt="logo" class="img-fluid">
     </div>
+</div>
+
+<div class="text-center mt-5">
+    <h3 class="text-white popp sombrat">¡Únete ahora y deja tu huella en la historia de Fallen Kingdom!</h3>
 </div>
